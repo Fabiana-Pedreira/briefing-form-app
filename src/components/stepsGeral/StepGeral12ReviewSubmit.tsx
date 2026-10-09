@@ -18,6 +18,9 @@ import {
   DollarSign,
   Sparkles,
   MessageCircle,
+  Mail,
+  FileText,
+  FileSpreadsheet,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -26,6 +29,8 @@ interface StepProps {
   onPrev: () => void;
   onReset: () => void;
 }
+
+const AGENCY_EMAIL = 'framemidiamkt@gmail.com';
 
 export const StepGeral12ReviewSubmit: React.FC<StepProps> = ({
   data,
@@ -71,65 +76,190 @@ export const StepGeral12ReviewSubmit: React.FC<StepProps> = ({
     }
   };
 
-  const copyMarkdown = () => {
-    const md = `# 📄 BRIEFING GERAL DE NEGÓCIOS - FRAME MÍDIA
-**Empresa / Marca:** ${data.companyName}
-**Segmento:** ${data.industrySegment || 'Não informado'}
-**Localização:** ${data.locationCoverage || 'Não informada'}
-**Momento Atual:** ${data.currentPhase}
+  const generateMarkdownText = () => {
+    return `================================================
+📄 BRIEFING GERAL DE NEGÓCIOS - FRAME MÍDIA
+Código Protocolo: #${briefingId || 'BRF-DEMO'}
+Destino: ${AGENCY_EMAIL}
+================================================
 
----
+01. IDENTIFICAÇÃO E HISTÓRIA DO NEGÓCIO
+• Empresa/Marca: ${data.companyName}
+• Segmento de Atuação: ${data.industrySegment || 'Não informado'}
+• Localização / Área: ${data.locationCoverage || 'Não informada'}
+• Tempo no Mercado: ${data.timeInBusiness || 'Não informado'}
+• Origem da Empresa: ${data.businessIdeaOrigin || 'Não informado'}
+• Principal Produto/Serviço: ${data.mainProductService || 'Não informado'}
+• Modelo de Negócio: ${data.businessModel || 'Não informado'}
+• Momento Atual: ${data.currentPhase}
+• Principais Desafios: ${data.currentMainChallenges || 'Não informado'}
+• Planos para o Futuro: ${data.futurePlans || 'Não informado'}
 
-## 01. Identificação e História
-- **Tempo de Mercado:** ${data.timeInBusiness || 'Não informado'}
-- **Principal Produto/Serviço:** ${data.mainProductService || 'Não informado'}
-- **Desafios Atuais:** ${data.currentMainChallenges || 'Não informado'}
+02. IDENTIDADE, ESSÊNCIA E POSICIONAMENTO
+• Propósito além das vendas: ${data.brandPurpose || 'Não informado'}
+• Problema que Resolve: ${data.customerProblemSolved || 'Não informado'}
+• Missão, Visão e Valores: ${data.missionVisionValues || 'Não informado'}
+• Atributos de Personalidade: ${data.brandPersonalityTraits.join(', ')}
+• Descrição Desejada por Clientes: ${data.desiredPeopleDescription || 'Não informado'}
+• Percepção a Evitar: ${data.perceptionToAvoid || 'Não informado'}
+• Posicionamento de Mercado: ${data.desiredMarketPositioning}
 
-## 02. Identidade & Posicionamento
-- **Propósito da Marca:** ${data.brandPurpose || 'Não informado'}
-- **Atributos de Personalidade:** ${data.brandPersonalityTraits.join(', ')}
-- **Posicionamento:** ${data.desiredMarketPositioning}
+03. PRODUTOS, SERVIÇOS E PROPOSTA DE VALOR
+• Carro-chefe (Mais Vendido): ${data.topSellingProducts || 'Não informado'}
+• Oportunidade de Expansão: ${data.growthOpportunityProducts || 'Não informado'}
+• Principais Diferenciais: ${data.mainDifferentials || 'Não informado'}
+• Faixa de Preço: ${data.priceRange || 'Não informada'}
 
-## 03. Produtos & Proposta de Valor
-- **Mais Vendidos:** ${data.topSellingProducts || 'Não informado'}
-- **Oportunidades de Crescimento:** ${data.growthOpportunityProducts || 'Não informado'}
-- **Faixa de Preço:** ${data.priceRange || 'Não informada'}
+04. PÚBLICO-ALVO E CLIENTE IDEAL
+• Perfil Cliente Ideal: ${data.idealClientToConquer || 'Não informado'}
+• Perfil Socioeconômico & Idade: ${data.ageAndSocioeconomicProfile || 'Não informado'}
+• Dores e Desejos: ${data.needsWantsDifficulties || 'Não informado'}
+• Principais Objeções: ${data.purchaseObjections || 'Não informado'}
 
-## 04. Público-Alvo
-- **Cliente Ideal:** ${data.idealClientToConquer || 'Não informado'}
-- **Perfil Socioeconômico:** ${data.ageAndSocioeconomicProfile || 'Não informado'}
+05. OBJETIVOS DO NEGÓCIO
+• Objetivos 6-12 meses: ${data.goals6to12Months || 'Não informado'}
+• Foco Principal de Crescimento: ${data.primaryGrowthFocus.join(', ')}
 
-## 05. Objetivos
-- **Metas 6-12 Meses:** ${data.goals6to12Months || 'Não informado'}
-- **Foco de Crescimento:** ${data.primaryGrowthFocus.join(', ')}
+06. IDENTIDADE VISUAL E COMUNICAÇÃO
+• Tem Identidade Visual: ${data.hasVisualIdentity}
+• Tom de Voz: ${data.brandToneOfVoice.join(', ')}
 
-## 06. Identidade Visual
-- **Identidade Existente:** ${data.hasVisualIdentity}
-- **Tom de Voz:** ${data.brandToneOfVoice.join(', ')}
+07. PRESENÇA DIGITAL E MARKETING ATUAL
+• Canais Digitais Ativos: ${data.currentDigitalChannels.join(', ')}
+• Ferramentas Usadas: ${data.toolsUsed.join(', ')}
 
-## 07. Presença Digital
-- **Canais:** ${data.currentDigitalChannels.join(', ')}
-- **Ferramentas Usadas:** ${data.toolsUsed.join(', ')}
+08. VENDAS, ATENDIMENTO E RELACIONAMENTO
+• Como os clientes chegam: ${data.howClientsArriveNow || 'Não informado'}
+• Follow-up Estruturado: ${data.structuredFollowUpProcess || 'Não informado'}
 
-## 08. Vendas & Relacionamento
-- **Entrada de Leads:** ${data.howClientsArriveNow || 'Não informado'}
-- **Follow-up:** ${data.structuredFollowUpProcess || 'Não informado'}
+09. CONCORRÊNCIA E MERCADO
+• Concorrentes Diretos: ${data.directCompetitors || 'Não informado'}
 
-## 09. Concorrência
-- **Principais Concorrentes:** ${data.directCompetitors || 'Não informado'}
+10. ESTRUTURA, RECURSOS E INVESTIMENTO
+• Contato Principal Frame Mídia: ${data.frameMidiaMainContact || 'Não informado'}
+• Orçamento Mensal Marketing: ${data.monthlyMarketingBudget}
+• Verba Mensal Anúncios Ads: ${data.monthlyPaidAdsBudget}
 
-## 10. Investimento & Recursos
-- **Gestão de Marketing:** ${data.monthlyMarketingBudget}
-- **Verba para Anúncios Ads:** ${data.monthlyPaidAdsBudget}
-- **Contato Principal:** ${data.frameMidiaMainContact || 'Não informado'}
-
-## 11. Alinhamento & Expectativas
-- **Motivação:** ${data.motivationForFrameMidiaNow || 'Não informada'}
-- **Relatórios:** ${data.reportingFormatFrequency}
+11. ALINHAMENTO E EXPECTATIVAS DA PARCERIA
+• Motivo da Contratação Frame Mídia: ${data.motivationForFrameMidiaNow || 'Não informada'}
+• Frequência de Relatórios: ${data.reportingFormatFrequency}
 `;
-    navigator.clipboard.writeText(md);
+  };
+
+  const copyMarkdown = () => {
+    navigator.clipboard.writeText(generateMarkdownText());
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const sendEmailToAgency = () => {
+    const subject = `Novo Briefing Geral (#${briefingId || 'BRF'}) - ${data.companyName}`;
+    const body = generateMarkdownText();
+    window.open(`mailto:${AGENCY_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+  };
+
+  const downloadWordDoc = () => {
+    const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Briefing Geral Frame Mídia</title><style>body{font-family:Arial,sans-serif;line-height:1.6;color:#111;} h1{color:#dc2626;} h2{color:#16a34a;border-bottom:1px solid #ccc;padding-bottom:4px;margin-top:20px;}</style></head><body>";
+    const footer = "</body></html>";
+
+    const htmlContent = `
+      <h1>📄 BRIEFING GERAL DE NEGÓCIOS - FRAME MÍDIA</h1>
+      <p><strong>Código Protocolo:</strong> #${briefingId || 'BRF-DEMO'}</p>
+      <p><strong>Empresa / Marca:</strong> ${data.companyName}</p>
+      <p><strong>E-mail Agência:</strong> ${AGENCY_EMAIL}</p>
+      <hr/>
+
+      <h2>01. Identificação e História do Negócio</h2>
+      <p><strong>Segmento:</strong> ${data.industrySegment || 'Não informado'}</p>
+      <p><strong>Localização:</strong> ${data.locationCoverage || 'Não informada'}</p>
+      <p><strong>Tempo no Mercado:</strong> ${data.timeInBusiness || 'Não informado'}</p>
+      <p><strong>Momento Atual:</strong> ${data.currentPhase}</p>
+      <p><strong>Principal Produto/Serviço:</strong> ${data.mainProductService || 'Não informado'}</p>
+
+      <h2>02. Identidade e Posicionamento</h2>
+      <p><strong>Propósito:</strong> ${data.brandPurpose || 'Não informado'}</p>
+      <p><strong>Posicionamento:</strong> ${data.desiredMarketPositioning}</p>
+
+      <h2>03. Produtos, Serviços e Proposta de Valor</h2>
+      <p><strong>Mais Vendido:</strong> ${data.topSellingProducts || 'Não informado'}</p>
+      <p><strong>Diferenciais:</strong> ${data.keyUniqueDifferentials || 'Não informado'}</p>
+
+      <h2>04. Público-Alvo</h2>
+      <p><strong>Cliente Ideal:</strong> ${data.idealClientToConquer || 'Não informado'}</p>
+      <p><strong>Socioeconômico/Idade:</strong> ${data.ageAndSocioeconomicProfile || 'Não informado'}</p>
+
+      <h2>05. Objetivos do Negócio</h2>
+      <p><strong>Objetivos 6-12 Meses:</strong> ${data.goals6to12Months || 'Não informado'}</p>
+      <p><strong>Foco de Crescimento:</strong> ${data.primaryGrowthFocus.join(', ')}</p>
+
+      <h2>10. Investimento & Recursos</h2>
+      <p><strong>Orçamento Gestão:</strong> ${data.monthlyMarketingBudget}</p>
+      <p><strong>Verba Anúncios Ads:</strong> ${data.monthlyPaidAdsBudget}</p>
+      <p><strong>Contato Principal:</strong> ${data.frameMidiaMainContact || 'Não informado'}</p>
+    `;
+
+    const blob = new Blob(['\ufeff' + header + htmlContent + footer], {
+      type: 'application/msword',
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `briefing-geral-${data.companyName.toLowerCase().replace(/\s+/g, '-') || 'empresa'}.doc`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  const printPdf = () => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Briefing Geral Frame Mídia - ${data.companyName}</title>
+          <style>
+            body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 40px; color: #111; line-height: 1.5; }
+            h1 { color: #dc2626; margin-bottom: 5px; font-size: 24px; }
+            .subtitle { color: #666; font-size: 14px; margin-bottom: 25px; border-bottom: 2px solid #ef4444; padding-bottom: 10px; }
+            h2 { color: #16a34a; font-size: 16px; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+            p { font-size: 13px; margin: 6px 0; }
+            strong { color: #000; }
+            .badge { background: #fee2e2; color: #dc2626; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <h1>📄 BRIEFING GERAL DE NEGÓCIOS</h1>
+          <div class="subtitle">Agência <strong>Frame Mídia</strong> • E-mail: ${AGENCY_EMAIL} • Protocolo #${briefingId || 'BRF'}</div>
+          
+          <p><span class="badge">EMPRESA / MARCA</span> <strong>${data.companyName}</strong></p>
+          <p><strong>Segmento:</strong> ${data.industrySegment || 'Não informado'} | <strong>Momento:</strong> ${data.currentPhase}</p>
+          
+          <h2>01. Identificação e História</h2>
+          <p><strong>Tempo no Mercado:</strong> ${data.timeInBusiness || 'Não informado'}</p>
+          <p><strong>Principal Produto/Serviço:</strong> ${data.mainProductService || 'Não informado'}</p>
+          <p><strong>Desafios:</strong> ${data.currentMainChallenges || 'Não informado'}</p>
+
+          <h2>02. Identidade & Posicionamento</h2>
+          <p><strong>Propósito:</strong> ${data.brandPurpose || 'Não informado'}</p>
+          <p><strong>Posicionamento:</strong> ${data.desiredMarketPositioning}</p>
+
+          <h2>05. Objetivos</h2>
+          <p><strong>Objetivos 6-12 Meses:</strong> ${data.goals6to12Months || 'Não informado'}</p>
+          <p><strong>Foco de Crescimento:</strong> ${data.primaryGrowthFocus.join(', ')}</p>
+
+          <h2>10. Investimento & Recursos</h2>
+          <p><strong>Orçamento Gestão:</strong> ${data.monthlyMarketingBudget}</p>
+          <p><strong>Verba Ads:</strong> ${data.monthlyPaidAdsBudget}</p>
+
+          <script>
+            window.onload = function() { window.print(); }
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
   };
 
   const downloadJSON = () => {
@@ -172,44 +302,71 @@ Gostaria de agendar nosso alinhamento estratégico!`;
             Briefing Geral Recebido! 🎉
           </h2>
           <p className="text-sm text-zinc-400 leading-relaxed">
-            As 11 sessões foram registradas sob o protocolo{' '}
+            Sua resposta foi salva com o código{' '}
             <strong className="text-red-500 font-mono font-black">
               #{briefingId}
             </strong>
-            . A equipe da Frame Mídia iniciará a análise estratégica do seu negócio!
+            . E-mail oficial da agência: <strong className="text-lime-400 font-mono">{AGENCY_EMAIL}</strong>.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+        {/* Action Buttons Row */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 pt-4 max-w-2xl mx-auto">
+          <button
+            onClick={sendEmailToAgency}
+            className="flex items-center gap-2 px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-red-600/20"
+          >
+            <Mail className="w-4 h-4" />
+            Enviar por E-mail ({AGENCY_EMAIL})
+          </button>
+
+          <button
+            onClick={printPdf}
+            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-lime-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
+          >
+            <FileText className="w-4 h-4 text-red-500" />
+            Baixar em PDF
+          </button>
+
+          <button
+            onClick={downloadWordDoc}
+            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-blue-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-blue-400" />
+            Baixar em Word (.DOC)
+          </button>
+
           <button
             onClick={openWhatsAppSend}
-            className="flex items-center gap-2 px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl text-sm transition-all shadow-lg shadow-emerald-600/20"
+            className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-600/20"
           >
             <MessageCircle className="w-4 h-4" />
-            Enviar Confirmação no WhatsApp da Agência
+            Enviar no WhatsApp
           </button>
 
           <button
             onClick={copyMarkdown}
-            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 font-semibold rounded-xl text-sm transition-all border border-zinc-800"
+            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 font-semibold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
           >
             <Copy className="w-4 h-4 text-red-500" />
-            {copied ? 'Markdown Copiado!' : 'Copiar Resumo em Markdown'}
+            {copied ? 'Copiado!' : 'Copiar Markdown'}
           </button>
 
           <button
             onClick={downloadJSON}
-            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 font-semibold rounded-xl text-sm transition-all border border-zinc-800"
+            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-400 font-semibold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
           >
-            <Download className="w-4 h-4 text-lime-400" />
-            Baixar JSON Completo
+            <Download className="w-4 h-4" />
+            Baixar JSON
           </button>
+        </div>
 
+        <div className="pt-4">
           <button
             onClick={onReset}
-            className="px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold rounded-xl text-sm transition-all shadow-md shadow-red-500/20"
+            className="text-xs text-zinc-400 hover:text-white underline font-semibold"
           >
-            Novo Briefing
+            Preencher Novo Briefing Geral
           </button>
         </div>
       </div>

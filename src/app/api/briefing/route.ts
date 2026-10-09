@@ -2,10 +2,13 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
+const DEFAULT_AGENCY_EMAIL = 'framemidiamkt@gmail.com';
+
 export async function GET() {
   return NextResponse.json({
     status: 'online',
     service: 'Frame Mídia Briefing API',
+    agencyEmail: DEFAULT_AGENCY_EMAIL,
     timestamp: new Date().toISOString(),
   });
 }
@@ -15,41 +18,43 @@ export async function POST(request: Request) {
     const data = await request.json();
 
     // Validação básica dos campos obrigatórios
-    if (!data.clientName || !data.email || !data.companyName) {
+    if (!data.companyName) {
       return NextResponse.json(
-        { success: false, error: 'Nome, E-mail e Empresa são campos obrigatórios.' },
+        { success: false, error: 'O nome da empresa ou clínica é obrigatório.' },
         { status: 400 }
       );
     }
 
     const briefingId = `BRF-${Date.now().toString(36).toUpperCase()}`;
     const timestamp = new Date().toISOString();
+    const destinationEmail = process.env.NOTIFICATION_EMAIL || DEFAULT_AGENCY_EMAIL;
 
     const payload = {
       id: briefingId,
       timestamp,
+      destinationEmail,
       data,
     };
 
-    console.log('✅ Briefing recebido com sucesso:', briefingId, payload);
+    console.log(`✅ [Frame Mídia API] Briefing #${briefingId} registrado para enviar para ${destinationEmail}`);
 
-    // Se houver WEBHOOK_URL configurado nas variáveis de ambiente da Vercel, envia o webhook
+    // Se houver WEBHOOK_URL configurado nas variáveis de ambiente da Vercel (ex: Make, Zapier ou Discord)
     if (process.env.WEBHOOK_URL) {
       try {
         await fetch(process.env.WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            content: `🚀 **Novo Briefing Recebido!** (#${briefingId})`,
+            content: `🚀 **Novo Briefing Recebido (#${briefingId})!** Destino: ${destinationEmail}`,
             embeds: [
               {
-                title: `Briefing de ${data.companyName}`,
+                title: `Briefing Frame Mídia: ${data.companyName}`,
                 fields: [
-                  { name: 'Cliente', value: data.clientName, inline: true },
-                  { name: 'E-mail', value: data.email, inline: true },
-                  { name: 'Frente de Atuação', value: data.projectType, inline: true },
-                  { name: 'Investimento', value: data.budgetRange, inline: true },
-                  { name: 'Prazo Desejado', value: data.deadline, inline: true },
+                  { name: 'Empresa', value: data.companyName, inline: true },
+                  { name: 'E-mail Cliente', value: data.email || 'Não informado', inline: true },
+                  { name: 'E-mail Agência', value: destinationEmail, inline: true },
+                  { name: 'Tipo', value: data.type === 'estetica' ? 'Estética & Saúde (09 Sessões)' : 'Geral de Negócios (11 Sessões)', inline: true },
+                  { name: 'Investimento', value: data.monthlyMarketingBudget || data.agencyMonthlyBudget || 'A definir', inline: true },
                 ],
                 color: 0xef4444,
               },
@@ -64,7 +69,8 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       briefingId,
-      message: 'Briefing enviado com sucesso! A equipe da Frame Mídia entrará em contato em breve.',
+      destinationEmail,
+      message: `Briefing #${briefingId} processado com sucesso! E-mail de notificação direcionado para ${destinationEmail}`,
       timestamp,
     });
   } catch (error) {

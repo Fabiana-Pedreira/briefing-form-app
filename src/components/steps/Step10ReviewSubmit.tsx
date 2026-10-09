@@ -19,6 +19,9 @@ import {
   HeartPulse,
   Sparkles,
   MessageCircle,
+  Mail,
+  FileText,
+  FileSpreadsheet,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -27,6 +30,8 @@ interface StepProps {
   onPrev: () => void;
   onReset: () => void;
 }
+
+const AGENCY_EMAIL = 'framemidiamkt@gmail.com';
 
 export const Step10ReviewSubmit: React.FC<StepProps> = ({
   data,
@@ -72,78 +77,210 @@ export const Step10ReviewSubmit: React.FC<StepProps> = ({
     }
   };
 
-  const copyMarkdown = () => {
-    const md = `# 📄 BRIEFING DE ESTÉTICA & SAÚDE - FRAME MÍDIA
-**Clínica/Marca:** ${data.companyName}
-**Localização:** ${data.location || 'Não informada'}
-**Tempo de Mercado:** ${data.yearsInMarket || 'Não informado'}
+  const generateMarkdownText = () => {
+    return `================================================
+📄 BRIEFING DE ESTÉTICA & SAÚDE - FRAME MÍDIA
+Código Protocolo: #${briefingId || 'BRF-DEMO'}
+Destino: ${AGENCY_EMAIL}
+================================================
 
----
+01. SOBRE O NEGÓCIO
+• Empresa/Clínica: ${data.companyName}
+• Tempo no Mercado: ${data.yearsInMarket || 'Não informado'}
+• Localização: ${data.location || 'Não informada'}
+• Estrutura de Equipe: ${data.teamStructure}
+• Serviços Oferecidos: ${data.mainServices}
+• Serviço Mais Vendido: ${data.topSellingService}
+• Serviço para Vender Mais: ${data.serviceToSellMore}
+• Diferencial Competitivo: ${data.mainDifferential}
 
-## 01. Sobre o Negócio
-- **Serviços Principais:** ${data.mainServices}
-- **Serviço Mais Vendido:** ${data.topSellingService}
-- **Serviço para Vender Mais:** ${data.serviceToSellMore}
-- **Diferencial:** ${data.mainDifferential}
+02. OBJETIVOS DO NEGÓCIO
+• Objetivos 6-12 meses: ${data.goalsNextMonths}
+• Foco de Crescimento: ${data.growthFocus.join(', ')}
+• Protocolos para Divulgação: ${data.protocolsToPromote}
+• Meta Faturamento: ${data.monthlyRevenueTarget}
+• Meta Novos Clientes/mês: ${data.newClientsMonthlyTarget}
 
-## 02. Objetivos
-- **Objetivos 6-12 meses:** ${data.goalsNextMonths}
-- **Foco de Crescimento:** ${data.growthFocus.join(', ')}
-- **Meta Faturamento:** ${data.monthlyRevenueTarget} | **Novos Clientes/mês:** ${data.newClientsMonthlyTarget}
+03. PÚBLICO-ALVO E CLIENTES
+• Perfil Cliente Ideal: ${data.idealClientProfile}
+• Faixa Etária / Gênero: ${data.ageRange} (${data.genderAudience})
+• Região/Bairros: ${data.neighborhoodsCities}
+• Poder Aquisitivo: ${data.purchasingPower}
+• Queixas Estéticas: ${data.aestheticComplaints}
+• Valores Apreciados: ${data.clientValues.join(', ')}
+• Objeções Antes de Fechar: ${data.objectionsBeforeBuying}
 
-## 03. Público-Alvo
-- **Cliente Ideal:** ${data.idealClientProfile}
-- **Faixa Etária / Gênero:** ${data.ageRange} (${data.genderAudience})
-- **Poder Aquisitivo:** ${data.purchasingPower}
-- **Queixas Estéticas:** ${data.aestheticComplaints}
+04. IDENTIDADE E POSICIONAMENTO
+• Percepção Desejada: ${data.desiredBrandPerception}
+• 3 Palavras Essência: ${data.essenceWords}
+• Atributos: ${data.brandAttributes.join(', ')}
+• Posicionamento: ${data.marketPositioning}
 
-## 04. Identidade & Posicionamento
-- **Essência:** ${data.essenceWords}
-- **Atributos:** ${data.brandAttributes.join(', ')}
-- **Posicionamento:** ${data.marketPositioning}
+05. PRESENÇA DIGITAL E CONTEÚDO
+• Canais Ativos: ${data.activeSocialNetworks.join(', ')}
+• Canal Efetivo: ${data.topLeadChannel}
+• Conforto em Vídeos: ${data.videoComfortLevel}
+• Tom de Comunicação: ${data.communicationTone.join(', ')}
 
-## 05. Presença Digital
-- **Canais Ativos:** ${data.activeSocialNetworks.join(', ')}
-- **Conforto em Vídeos:** ${data.videoComfortLevel}
-- **Tom de Comunicação:** ${data.communicationTone.join(', ')}
+06. COMERCIAL E ATENDIMENTO
+• Atendente Comercial: ${data.salesAttendant}
+• Tempo de Resposta: ${data.avgResponseTime}
+• Motivos de Perda de Venda: ${data.lostSalesReasons}
 
-## 06. Comercial & Atendimento
-- **Responsável Comercial:** ${data.salesAttendant}
-- **Tempo de Resposta:** ${data.avgResponseTime}
-- **Motivos de Perda de Venda:** ${data.lostSalesReasons}
+07. CONCORRÊNCIA E MERCADO
+• Concorrentes: ${data.mainCompetitors}
+• Fator Competitivo: ${data.competitiveEdgeType}
 
-## 07. Concorrência
-- **Principais Concorrentes:** ${data.mainCompetitors}
-- **Fator Competitivo:** ${data.competitiveEdgeType}
+08. INVESTIMENTO E EXPECTATIVAS
+• Orçamento Gestão Marketing: ${data.agencyMonthlyBudget}
+• Verba Anúncios Ads: ${data.paidAdsMonthlyBudget}
 
-## 08. Investimento & Recursos
-- **Gestão de Marketing:** ${data.agencyMonthlyBudget}
-- **Verba para Anúncios (Ads):** ${data.paidAdsMonthlyBudget}
-
-## 09. Estratégias Específicas de Estética
-- **Maior Margem de Lucro:** ${data.highestProfitMarginServices}
-- **Porta de Entrada (Chama-cliente):** ${data.entryLeadMagnetServices}
-- **Ticket Médio por Cliente:** ${data.avgTicketPerClient}
-- **Normas & Fotos Antes/Depois:** ${data.beforeAfterPolicy}
+09. PERGUNTAS ESTRATÉGICAS DE ESTÉTICA
+• Maior Margem de Lucro: ${data.highestProfitMarginServices}
+• Porta de Entrada (Chama-cliente): ${data.entryLeadMagnetServices}
+• Ticket Médio: ${data.avgTicketPerClient}
+• Fotos Antes/Depois & Normas: ${data.beforeAfterPolicy}
 `;
-    navigator.clipboard.writeText(md);
+  };
+
+  const copyMarkdown = () => {
+    navigator.clipboard.writeText(generateMarkdownText());
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const downloadJSON = () => {
-    const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(
-      JSON.stringify(data, null, 2)
-    )}`;
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute('href', jsonString);
-    downloadAnchor.setAttribute(
-      'download',
-      `briefing-estetica-${data.companyName.toLowerCase().replace(/\s+/g, '-') || 'clinica'}.json`
-    );
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
+  const sendEmailToAgency = () => {
+    const subject = `Novo Briefing Estética (#${briefingId || 'BRF'}) - ${data.companyName}`;
+    const body = generateMarkdownText();
+    window.open(`mailto:${AGENCY_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+  };
+
+  const downloadWordDoc = () => {
+    const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Briefing Frame Mídia</title><style>body{font-family:Arial,sans-serif;line-height:1.6;color:#111;} h1{color:#dc2626;} h2{color:#16a34a;border-bottom:1px solid #ccc;padding-bottom:4px;margin-top:20px;}</style></head><body>";
+    const footer = "</body></html>";
+
+    const htmlContent = `
+      <h1>📄 BRIEFING DE ESTÉTICA & SAÚDE - FRAME MÍDIA</h1>
+      <p><strong>Código Protocolo:</strong> #${briefingId || 'BRF-DEMO'}</p>
+      <p><strong>Empresa / Clínica:</strong> ${data.companyName}</p>
+      <p><strong>E-mail Agência:</strong> ${AGENCY_EMAIL}</p>
+      <hr/>
+
+      <h2>01. Sobre o Negócio</h2>
+      <p><strong>Tempo no Mercado:</strong> ${data.yearsInMarket || 'Não informado'}</p>
+      <p><strong>Localização:</strong> ${data.location || 'Não informada'}</p>
+      <p><strong>Serviços Oferecidos:</strong> ${data.mainServices}</p>
+      <p><strong>Serviço Mais Vendido:</strong> ${data.topSellingService}</p>
+      <p><strong>Serviço para Vender Mais:</strong> ${data.serviceToSellMore}</p>
+      <p><strong>Diferencial:</strong> ${data.mainDifferential}</p>
+
+      <h2>02. Objetivos do Negócio</h2>
+      <p><strong>Objetivos 6-12 meses:</strong> ${data.goalsNextMonths}</p>
+      <p><strong>Foco de Crescimento:</strong> ${data.growthFocus.join(', ')}</p>
+      <p><strong>Meta Faturamento:</strong> ${data.monthlyRevenueTarget}</p>
+
+      <h2>03. Público-Alvo e Clientes</h2>
+      <p><strong>Cliente Ideal:</strong> ${data.idealClientProfile}</p>
+      <p><strong>Faixa Etária / Gênero:</strong> ${data.ageRange} (${data.genderAudience})</p>
+      <p><strong>Queixas Estéticas:</strong> ${data.aestheticComplaints}</p>
+
+      <h2>04. Identidade e Posicionamento</h2>
+      <p><strong>Posicionamento:</strong> ${data.marketPositioning}</p>
+      <p><strong>3 Palavras Essência:</strong> ${data.essenceWords}</p>
+
+      <h2>05. Presença Digital</h2>
+      <p><strong>Canais Ativos:</strong> ${data.activeSocialNetworks.join(', ')}</p>
+      <p><strong>Tom de Comunicação:</strong> ${data.communicationTone.join(', ')}</p>
+
+      <h2>08. Investimento & Recursos</h2>
+      <p><strong>Orçamento Gestão:</strong> ${data.agencyMonthlyBudget}</p>
+      <p><strong>Verba Ads:</strong> ${data.paidAdsMonthlyBudget}</p>
+
+      <h2>09. Estratégias Específicas de Estética</h2>
+      <p><strong>Maior Margem de Lucro:</strong> ${data.highestProfitMarginServices}</p>
+      <p><strong>Chama-cliente:</strong> ${data.entryLeadMagnetServices}</p>
+      <p><strong>Ticket Médio:</strong> ${data.avgTicketPerClient}</p>
+    `;
+
+    const blob = new Blob(['\ufeff' + header + htmlContent + footer], {
+      type: 'application/msword',
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `briefing-estetica-${data.companyName.toLowerCase().replace(/\s+/g, '-') || 'clinica'}.doc`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  const printPdf = () => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Briefing Frame Mídia - ${data.companyName}</title>
+          <style>
+            body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 40px; color: #111; line-height: 1.5; }
+            h1 { color: #dc2626; margin-bottom: 5px; font-size: 24px; }
+            .subtitle { color: #666; font-size: 14px; margin-bottom: 25px; border-bottom: 2px solid #ef4444; padding-bottom: 10px; }
+            h2 { color: #16a34a; font-size: 16px; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+            p { font-size: 13px; margin: 6px 0; }
+            strong { color: #000; }
+            .badge { background: #fee2e2; color: #dc2626; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <h1>📄 BRIEFING DE ESTÉTICA & SAÚDE</h1>
+          <div class="subtitle">Agência <strong>Frame Mídia</strong> • E-mail: ${AGENCY_EMAIL} • Protocolo #${briefingId || 'BRF'}</div>
+          
+          <p><span class="badge">EMPRESA / CLÍNICA</span> <strong>${data.companyName}</strong></p>
+          <p><strong>Localização:</strong> ${data.location || 'Não informada'} | <strong>Tempo de Mercado:</strong> ${data.yearsInMarket || 'Não informado'}</p>
+          
+          <h2>01. Sobre o Negócio</h2>
+          <p><strong>Serviços Oferecidos:</strong> ${data.mainServices}</p>
+          <p><strong>Serviço Mais Vendido:</strong> ${data.topSellingService}</p>
+          <p><strong>Serviço para Vender Mais:</strong> ${data.serviceToSellMore}</p>
+          <p><strong>Diferencial:</strong> ${data.mainDifferential}</p>
+
+          <h2>02. Objetivos do Negócio</h2>
+          <p><strong>Objetivos 6-12 Meses:</strong> ${data.goalsNextMonths}</p>
+          <p><strong>Foco de Crescimento:</strong> ${data.growthFocus.join(', ')}</p>
+          <p><strong>Meta Mensal Faturamento:</strong> ${data.monthlyRevenueTarget}</p>
+
+          <h2>03. Público-Alvo e Clientes</h2>
+          <p><strong>Cliente Ideal:</strong> ${data.idealClientProfile}</p>
+          <p><strong>Faixa Etária / Gênero:</strong> ${data.ageRange} (${data.genderAudience})</p>
+          <p><strong>Queixas Estéticas:</strong> ${data.aestheticComplaints}</p>
+
+          <h2>04. Identidade e Posicionamento</h2>
+          <p><strong>Posicionamento:</strong> ${data.marketPositioning}</p>
+          <p><strong>3 Palavras Essência:</strong> ${data.essenceWords}</p>
+
+          <h2>05. Presença Digital e Conteúdo</h2>
+          <p><strong>Canais Ativos:</strong> ${data.activeSocialNetworks.join(', ')}</p>
+          <p><strong>Tom de Comunicação:</strong> ${data.communicationTone.join(', ')}</p>
+
+          <h2>08. Investimento e Expectativas</h2>
+          <p><strong>Orçamento Gestão:</strong> ${data.agencyMonthlyBudget}</p>
+          <p><strong>Verba Anúncios Ads:</strong> ${data.paidAdsMonthlyBudget}</p>
+
+          <h2>09. Estratégias Específicas de Estética</h2>
+          <p><strong>Maior Margem de Lucro:</strong> ${data.highestProfitMarginServices}</p>
+          <p><strong>Serviço Porta de Entrada:</strong> ${data.entryLeadMagnetServices}</p>
+          <p><strong>Ticket Médio:</strong> ${data.avgTicketPerClient}</p>
+          <p><strong>Normas Fotos Antes/Depois:</strong> ${data.beforeAfterPolicy}</p>
+
+          <script>
+            window.onload = function() { window.print(); }
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
   };
 
   const openWhatsAppSend = () => {
@@ -172,44 +309,63 @@ Gostaria de agendar nossa reunião de alinhamento!`;
             Diagnóstico de Estética Recebido! 🎉
           </h2>
           <p className="text-sm text-zinc-400 leading-relaxed">
-            Todas as 09 sessões foram registradas sob o protocolo{' '}
+            Sua resposta foi salva com o código{' '}
             <strong className="text-red-500 font-mono font-black">
               #{briefingId}
             </strong>
-            . A equipe da Frame Mídia analisará as oportunidades do seu negócio!
+            . E-mail oficial da agência: <strong className="text-lime-400 font-mono">{AGENCY_EMAIL}</strong>.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+        {/* Action Buttons Row */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 pt-4 max-w-2xl mx-auto">
+          <button
+            onClick={sendEmailToAgency}
+            className="flex items-center gap-2 px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-red-600/20"
+          >
+            <Mail className="w-4 h-4" />
+            Enviar por E-mail ({AGENCY_EMAIL})
+          </button>
+
+          <button
+            onClick={printPdf}
+            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-lime-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
+          >
+            <FileText className="w-4 h-4 text-red-500" />
+            Baixar em PDF
+          </button>
+
+          <button
+            onClick={downloadWordDoc}
+            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-blue-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-blue-400" />
+            Baixar em Word (.DOC)
+          </button>
+
           <button
             onClick={openWhatsAppSend}
-            className="flex items-center gap-2 px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl text-sm transition-all shadow-lg shadow-emerald-600/20"
+            className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-600/20"
           >
             <MessageCircle className="w-4 h-4" />
-            Enviar Confirmação no WhatsApp da Agência
+            Enviar no WhatsApp
           </button>
 
           <button
             onClick={copyMarkdown}
-            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 font-semibold rounded-xl text-sm transition-all border border-zinc-800"
+            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 font-semibold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
           >
             <Copy className="w-4 h-4 text-red-500" />
-            {copied ? 'Markdown Copiado!' : 'Copiar Resumo em Markdown'}
+            {copied ? 'Copiado!' : 'Copiar Markdown'}
           </button>
+        </div>
 
-          <button
-            onClick={downloadJSON}
-            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 font-semibold rounded-xl text-sm transition-all border border-zinc-800"
-          >
-            <Download className="w-4 h-4 text-lime-400" />
-            Baixar JSON Completo
-          </button>
-
+        <div className="pt-4">
           <button
             onClick={onReset}
-            className="px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold rounded-xl text-sm transition-all shadow-md shadow-red-500/20"
+            className="text-xs text-zinc-400 hover:text-white underline font-semibold"
           >
-            Novo Diagnóstico
+            Preencher Novo Diagnóstico
           </button>
         </div>
       </div>
@@ -226,7 +382,7 @@ Gostaria de agendar nossa reunião de alinhamento!`;
           <Send className="w-6 h-6 text-red-500" /> 10. Envio do Diagnóstico Estratégico
         </h2>
         <p className="text-xs sm:text-sm text-zinc-400">
-          Confira o resumo geral das 09 sessões antes de submeter para a equipe da Frame Mídia.
+          Confira o resumo geral das 09 sessões antes de submeter para a equipe da Frame Mídia ({AGENCY_EMAIL}).
         </p>
       </div>
 
