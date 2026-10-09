@@ -11,7 +11,7 @@ import { StepProjectGoals } from '@/components/steps/StepProjectGoals';
 import { StepVisualIdentity } from '@/components/steps/StepVisualIdentity';
 import { StepScopeRequirements } from '@/components/steps/StepScopeRequirements';
 import { StepReviewSubmit } from '@/components/steps/StepReviewSubmit';
-import { Sparkles, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { Sparkles, Zap, ShieldCheck, Film, CheckCircle2 } from 'lucide-react';
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <div className={darkMode ? 'dark' : ''}>
-      <div className="min-h-screen bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-300">
+      <div className="min-h-screen bg-slate-50 dark:bg-[#080c14] text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-300">
         {/* Top Sticky Header */}
         <Header
           darkMode={darkMode}
@@ -46,33 +46,63 @@ export default function Home() {
           onOpenPreview={() => setIsPreviewOpen(true)}
         />
 
-        {/* Hero Section Banner */}
-        <section className="relative overflow-hidden pt-8 pb-4 px-4 text-center">
+        {/* Hero Section Banner - Frame Mídia Branding */}
+        <section className="relative overflow-hidden pt-10 pb-6 px-4 text-center">
           <div className="absolute inset-0 -z-10 flex items-center justify-center opacity-30 dark:opacity-20 pointer-events-none">
-            <div className="w-[500px] h-[500px] bg-brand-500/30 rounded-full blur-3xl animate-pulse-slow" />
-            <div className="w-[400px] h-[400px] bg-accent-500/20 rounded-full blur-3xl" />
+            <div className="w-[500px] h-[500px] bg-lime-500/20 rounded-full blur-3xl animate-pulse-slow" />
+            <div className="w-[350px] h-[350px] bg-coral-500/20 rounded-full blur-3xl" />
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-600 dark:text-brand-300 border border-brand-500/20 shadow-sm">
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
-              <span>Formulário Inteligente de Briefing para Vercel</span>
+          <div className="max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-lime-500/10 text-lime-600 dark:text-lime-400 border border-lime-500/30 shadow-sm">
+              <Film className="w-3.5 h-3.5 text-coral-500" />
+              <span>Frame Mídia • Consultoria Estratégica</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-              Vamos transformar suas ideias em um{' '}
-              <span className="gradient-text">Projeto Extraordinário</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
+              Menos ruído, <br className="hidden sm:block" />
+              <span className="gradient-text-lime underline decoration-lime-500/40 underline-offset-8">
+                mais posicionamento.
+              </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-              Preencha os detalhes abaixo em menos de 3 minutos para alinharmos objetivos, design e escopo técnico.
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
+              Não entregamos posts automáticos. Unimos{' '}
+              <strong className="text-slate-900 dark:text-white font-bold">
+                análise técnica e direção visual autêntica
+              </strong>{' '}
+              para gerar valor real a longo prazo.
             </p>
+
+            {/* Como Funciona - 3 Passos Rápidos */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 text-left max-w-2xl mx-auto">
+              <div className="p-3.5 rounded-2xl bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
+                <span className="text-xs font-black text-lime-500">01. Suas Respostas</span>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  Compartilhe suas prioridades atuais em 3 minutos.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
+                <span className="text-xs font-black text-lime-500">02. Nosso Olhar</span>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  Analisamos seu contexto para a melhor estratégia.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
+                <span className="text-xs font-black text-lime-500">03. Nosso Contato</span>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  Retornaremos para alinhar a solução ideal.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Main Content Area */}
         <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6">
-          <div className="glass-panel p-6 sm:p-8 md:p-10 rounded-3xl shadow-2xl shadow-brand-500/5 transition-all">
+          <div className="glass-panel p-6 sm:p-8 md:p-10 rounded-3xl shadow-2xl shadow-lime-500/5 transition-all">
             {/* Step Indicator */}
             <StepIndicator
               currentStep={currentStep}

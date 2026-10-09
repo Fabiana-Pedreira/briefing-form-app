@@ -5,16 +5,16 @@
 @layer base {
   :root {
     --bg-primary: #f8fafc;
-    --card-bg: rgba(255, 255, 255, 0.85);
+    --card-bg: rgba(255, 255, 255, 0.9);
     --border-color: #e2e8f0;
     --text-primary: #0f172a;
     --text-secondary: #475569;
   }
 
   .dark {
-    --bg-primary: #090d16;
-    --card-bg: rgba(17, 24, 39, 0.8);
-    --border-color: #1f293d;
+    --bg-primary: #080c14;
+    --card-bg: rgba(17, 23, 38, 0.85);
+    --border-color: #1e293b;
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
   }
@@ -38,14 +38,14 @@
 }
 
 .glass-pill {
-  background: rgba(99, 102, 241, 0.08);
+  background: rgba(132, 204, 22, 0.1);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(132, 204, 22, 0.25);
 }
 
 .dark .glass-pill {
-  background: rgba(99, 102, 241, 0.15);
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  background: rgba(132, 204, 22, 0.15);
+  border: 1px solid rgba(132, 204, 22, 0.3);
 }
 
 /* Custom Scrollbar */
@@ -66,14 +66,39 @@
   background: rgba(148, 163, 184, 0.5);
 }
 
-/* Gradient Text */
-.gradient-text {
-  background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+/* Lime Underline Accent */
+.lime-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.lime-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #a3e635;
+  border-radius: 2px;
+  z-index: -1;
+  opacity: 0.85;
+}
+
+/* Gradient Text for Frame Mídia */
+.gradient-text-lime {
+  background: linear-gradient(135deg, #a3e635 0%, #84cc16 50%, #4d7c0f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-coral {
+  background: linear-gradient(135deg, #ff7e67 0%, #ff5e36 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* Input Focus Glow */
 .glow-focus:focus-within {
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.3);
 }

@@ -8,7 +8,6 @@ import {
   Copy,
   CheckCircle2,
   AlertCircle,
-  FileText,
   User,
   Target,
   Palette,
@@ -50,11 +49,11 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
       if (response.ok && resData.success) {
         setSubmitted(true);
         setBriefingId(resData.briefingId);
-        // Solta confetes festivos de sucesso!
         confetti({
-          particleCount: 100,
-          spread: 70,
+          particleCount: 120,
+          spread: 80,
           origin: { y: 0.6 },
+          colors: ['#a3e635', '#ff5e36', '#ffffff'],
         });
       } else {
         setErrorMessage(resData.error || 'Ocorreu um erro ao enviar o briefing.');
@@ -68,17 +67,17 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
   };
 
   const copyMarkdown = () => {
-    const md = `# 📄 BRIEFING DE PROJETO: ${data.companyName}
+    const md = `# 📄 BRIEFING FRAME MÍDIA: ${data.companyName}
 
 - **Cliente:** ${data.clientName} (${data.email})
 - **Empresa:** ${data.companyName}
-- **Projeto:** ${data.projectType}
-- **Metas:** ${data.mainGoals.join(', ')}
+- **Frente de Atuação:** ${data.projectType}
+- **Objetivos:** ${data.mainGoals.join(', ')}
 - **Estilo Visual:** ${data.brandStyle.join(', ')}
-- **Cores:** Primária (${data.primaryColor}), Secundária (${data.secondaryColor})
-- **Orçamento:** ${data.budgetRange} | **Prazo:** ${data.deadline}
-- **Páginas:** ${data.requiredPages.join(', ')}
-- **Recursos:** ${data.features.join(', ')}
+- **Cores:** Destaque (${data.primaryColor}), Fundo (${data.secondaryColor})
+- **Investimento:** ${data.budgetRange} | **Prazo:** ${data.deadline}
+- **Estrutura:** ${data.requiredPages.join(', ')}
+- **Serviços:** ${data.features.join(', ')}
 `;
     navigator.clipboard.writeText(md);
     setCopied(true);
@@ -93,7 +92,7 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
     downloadAnchor.setAttribute('href', jsonString);
     downloadAnchor.setAttribute(
       'download',
-      `briefing-${data.companyName.toLowerCase().replace(/\s+/g, '-') || 'projeto'}.json`
+      `briefing-frame-midia-${data.companyName.toLowerCase().replace(/\s+/g, '-') || 'projeto'}.json`
     );
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
@@ -103,20 +102,20 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
   if (submitted) {
     return (
       <div className="text-center py-10 space-y-6 animate-fade-in">
-        <div className="w-20 h-20 mx-auto rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-500 flex items-center justify-center ring-8 ring-emerald-500/10">
+        <div className="w-20 h-20 mx-auto rounded-full bg-lime-500/10 dark:bg-lime-500/20 text-lime-500 flex items-center justify-center ring-8 ring-lime-500/10">
           <CheckCircle2 className="w-10 h-10" />
         </div>
 
         <div className="space-y-2 max-w-md mx-auto">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-            Briefing Enviado com Sucesso! 🎉
+            Aplicação Enviada com Sucesso! 🎉
           </h2>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            Obrigado! Seu briefing foi registrado com o código{' '}
-            <strong className="text-brand-600 dark:text-brand-400 font-mono">
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Recebemos seu diagnóstico com a identificação{' '}
+            <strong className="text-lime-500 font-mono">
               #{briefingId}
             </strong>
-            .
+            . Nossa equipe analisará seu contexto para retornar em breve.
           </p>
         </div>
 
@@ -125,7 +124,7 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
             onClick={copyMarkdown}
             className="flex items-center gap-2 px-4 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold rounded-xl text-sm transition-all border border-slate-200 dark:border-slate-700"
           >
-            <Copy className="w-4 h-4 text-brand-500" />
+            <Copy className="w-4 h-4 text-lime-500" />
             {copied ? 'Markdown Copiado!' : 'Copiar em Markdown'}
           </button>
 
@@ -133,15 +132,15 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
             onClick={downloadJSON}
             className="flex items-center gap-2 px-4 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold rounded-xl text-sm transition-all border border-slate-200 dark:border-slate-700"
           >
-            <Download className="w-4 h-4 text-brand-500" />
+            <Download className="w-4 h-4 text-lime-500" />
             Baixar Arquivo JSON
           </button>
 
           <button
             onClick={onReset}
-            className="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl text-sm transition-all shadow-md shadow-brand-500/20"
+            className="px-4 py-2.5 bg-lime-500 hover:bg-lime-400 text-slate-950 font-bold rounded-xl text-sm transition-all shadow-md shadow-lime-500/20"
           >
-            Novo Briefing
+            Nova Aplicação
           </button>
         </div>
       </div>
@@ -152,15 +151,15 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
     <div className="space-y-6 animate-fade-in">
       <div className="space-y-1">
         <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <Send className="w-6 h-6 text-brand-500" /> Revisão Final & Envio
+          <Send className="w-6 h-6 text-lime-500" /> Revisão Final & Envio da Aplicação
         </h2>
         <p className="text-sm text-slate-500 dark:text-slate-400">
-          Confira os dados preenchidos antes de enviar diretamente para a nossa equipe.
+          Confira o resumo das informações antes de enviar para a equipe da Frame Mídia.
         </p>
       </div>
 
       {errorMessage && (
-        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-sm flex items-center gap-3">
+        <div className="p-4 rounded-xl bg-coral-500/10 border border-coral-500/20 text-coral-500 text-sm flex items-center gap-3">
           <AlertCircle className="w-5 h-5 shrink-0" />
           <span>{errorMessage}</span>
         </div>
@@ -170,7 +169,7 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Card 1: Cliente */}
         <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-lime-500">
             <User className="w-4 h-4" /> Cliente & Empresa
           </div>
           <div className="text-sm space-y-1 text-slate-800 dark:text-slate-200">
@@ -191,61 +190,51 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
 
         {/* Card 2: Objetivos */}
         <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">
-            <Target className="w-4 h-4" /> Tipo & Objetivos
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-lime-500">
+            <Target className="w-4 h-4" /> Frente & Objetivos
           </div>
           <div className="text-sm space-y-1 text-slate-800 dark:text-slate-200">
             <p>
-              <strong>Projeto:</strong> {data.projectType}
+              <strong>Frente:</strong> {data.projectType}
             </p>
             <p>
               <strong>Metas:</strong> {data.mainGoals.join(', ') || 'Nenhuma'}
             </p>
             <p>
-              <strong>Setor:</strong> {data.industry}
+              <strong>Segmento:</strong> {data.industry}
             </p>
           </div>
         </div>
 
         {/* Card 3: Design */}
         <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">
-            <Palette className="w-4 h-4" /> Estilo Visual
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-lime-500">
+            <Palette className="w-4 h-4" /> Estilo & Tom de Voz
           </div>
           <div className="text-sm space-y-1 text-slate-800 dark:text-slate-200">
             <p>
-              <strong>Estilos:</strong> {data.brandStyle.join(', ')}
+              <strong>Estilo:</strong> {data.brandStyle.join(', ')}
             </p>
-            <div className="flex items-center gap-2 pt-1">
-              <strong>Cores:</strong>
-              <span
-                className="w-4 h-4 rounded-full border border-slate-300"
-                style={{ backgroundColor: data.primaryColor }}
-                title="Primária"
-              />
-              <span
-                className="w-4 h-4 rounded-full border border-slate-300"
-                style={{ backgroundColor: data.secondaryColor }}
-                title="Secundária"
-              />
-            </div>
+            <p>
+              <strong>Tom de Voz:</strong> {data.toneOfVoice}
+            </p>
           </div>
         </div>
 
         {/* Card 4: Escopo */}
         <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">
-            <CheckSquare className="w-4 h-4" /> Orçamento & Prazo
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-lime-500">
+            <CheckSquare className="w-4 h-4" /> Investimento & Prazo
           </div>
           <div className="text-sm space-y-1 text-slate-800 dark:text-slate-200">
             <p>
-              <strong>Orçamento:</strong> {data.budgetRange}
+              <strong>Investimento:</strong> {data.budgetRange}
             </p>
             <p>
-              <strong>Prazo Desejado:</strong> {data.deadline}
+              <strong>Prazo:</strong> {data.deadline}
             </p>
             <p>
-              <strong>Páginas Selecionadas:</strong> {data.requiredPages.length}
+              <strong>Estruturas Selecionadas:</strong> {data.requiredPages.length}
             </p>
           </div>
         </div>
@@ -265,16 +254,16 @@ export const StepReviewSubmit: React.FC<StepReviewSubmitProps> = ({
           type="button"
           onClick={handleSubmit}
           disabled={submitting}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-brand-600 via-indigo-600 to-accent-500 hover:opacity-95 text-white font-bold rounded-xl shadow-xl shadow-brand-500/30 transition-all text-sm disabled:opacity-50"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-lime-500 hover:bg-lime-400 text-slate-950 font-extrabold rounded-xl shadow-xl shadow-lime-500/25 transition-all text-sm disabled:opacity-50"
         >
           {submitting ? (
             <>
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              Processando e Enviando...
+              <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+              Processando Diagnóstico...
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4" /> Enviar Briefing Agora
+              <Sparkles className="w-4 h-4 fill-slate-950" /> Enviar Aplicação para Frame Mídia
             </>
           )}
         </button>

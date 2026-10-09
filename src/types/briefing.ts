@@ -1,5 +1,5 @@
 export interface BriefingData {
-  // Step 1: Informações do Cliente
+  // Step 1: Informações do Cliente & Empresa
   clientName: string;
   companyName: string;
   email: string;
@@ -7,21 +7,21 @@ export interface BriefingData {
   website: string;
   industry: string;
 
-  // Step 2: Objetivos do Projeto
+  // Step 2: Objetivos do Projeto & Pilares Frame Mídia
   projectType: string;
   mainGoals: string[];
   targetAudience: string;
   competitors: string;
   differentials: string;
 
-  // Step 3: Identidade Visual & Design
+  // Step 3: Identidade Visual & Tom de Voz
   brandStyle: string[];
   primaryColor: string;
   secondaryColor: string;
   references: string;
   toneOfVoice: string;
 
-  // Step 4: Requisitos Técnicos & Escopo
+  // Step 4: Escopo & Requisitos Técnicos
   requiredPages: string[];
   features: string[];
   budgetRange: string;
@@ -37,20 +37,23 @@ export const initialBriefingData: BriefingData = {
   website: '',
   industry: 'Tecnologia & Inovação',
 
-  projectType: 'Website Institucional',
-  mainGoals: ['Aumentar Vendas', 'Melhorar Imagem da Marca'],
+  projectType: 'Ecossistema Integrado (Estratégia + Audiovisual + Design)',
+  mainGoals: [
+    'Elevar percepção de valor (parar de disputar preço)',
+    'Construir narrativa audiovisual de alto impacto',
+  ],
   targetAudience: '',
   competitors: '',
   differentials: '',
 
-  brandStyle: ['Moderno', 'Clean'],
-  primaryColor: '#6366f1',
-  secondaryColor: '#d946ef',
+  brandStyle: ['Moderno', 'Clean', 'High-tech / Premium'],
+  primaryColor: '#a3e635',
+  secondaryColor: '#ff5e36',
   references: '',
-  toneOfVoice: 'Profissional & Confiável',
+  toneOfVoice: 'Profissional, Autêntico & Estratégico',
 
-  requiredPages: ['Home', 'Sobre Nós', 'Serviços/Produtos', 'Contato'],
-  features: ['Formulário de Contato', 'Integração com WhatsApp', 'SEO Otimizado'],
+  requiredPages: ['Home', 'Posicionamento & Quem Somos', 'Soluções & Pilares', 'Contato / Aplicação'],
+  features: ['Formulário de Aplicação Qualificado', 'Integração com WhatsApp', 'SEO Otimizado'],
   budgetRange: 'R$ 5.000 a R$ 10.000',
   deadline: '30 dias',
   additionalNotes: '',

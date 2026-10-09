@@ -11,10 +11,10 @@ interface StepIndicatorProps {
 
 const steps = [
   { id: 1, label: 'Cliente & Empresa', icon: User },
-  { id: 2, label: 'Objetivos & Foco', icon: Target },
+  { id: 2, label: 'Objetivos & Pilares', icon: Target },
   { id: 3, label: 'Design & Estilo', icon: Palette },
-  { id: 4, label: 'Escopo & Recursos', icon: CheckSquare },
-  { id: 5, label: 'Revisão & Envio', icon: Send },
+  { id: 4, label: 'Escopo & Prazos', icon: CheckSquare },
+  { id: 5, label: 'Revisão & Aplicação', icon: Send },
 ];
 
 export const StepIndicator: React.FC<StepIndicatorProps> = ({
@@ -27,9 +27,9 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
   return (
     <div className="w-full mb-8 sm:mb-12">
       {/* Top Progress Bar */}
-      <div className="relative w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mb-6">
+      <div className="relative w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mb-6">
         <div
-          className="h-full bg-gradient-to-r from-brand-600 via-indigo-500 to-accent-500 transition-all duration-500 ease-out rounded-full"
+          className="h-full bg-gradient-to-r from-lime-500 via-lime-400 to-coral-500 transition-all duration-500 ease-out rounded-full shadow-sm"
           style={{ width: `${progressPercentage}%` }}
         />
       </div>
@@ -55,8 +55,8 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
                   isCompleted
                     ? 'bg-emerald-500 text-white shadow-emerald-500/20'
                     : isCurrent
-                    ? 'bg-gradient-to-tr from-brand-600 to-indigo-600 text-white shadow-brand-500/30 scale-105 ring-4 ring-brand-500/20 dark:ring-brand-500/30'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700'
+                    ? 'bg-gradient-to-tr from-lime-500 to-lime-400 text-slate-950 font-black shadow-lime-500/30 scale-105 ring-4 ring-lime-500/20'
+                    : 'bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700/80'
                 }`}
               >
                 {isCompleted ? (
@@ -69,7 +69,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
               <span
                 className={`mt-2 text-xs font-semibold hidden md:block transition-colors ${
                   isCurrent
-                    ? 'text-brand-600 dark:text-brand-400'
+                    ? 'text-lime-600 dark:text-lime-400 font-bold'
                     : isCompleted
                     ? 'text-slate-700 dark:text-slate-300'
                     : 'text-slate-400 dark:text-slate-500'

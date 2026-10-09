@@ -12,13 +12,14 @@ interface StepClientInfoProps {
 
 const industries = [
   'Tecnologia & Inovação',
+  'Consultoria & Serviços Profissionais',
   'E-commerce & Varejo',
-  'Saúde & Bem-estar',
-  'Educação & Cursos',
+  'Saúde, Medicina & Estética',
+  'Educação & Infoprodutos',
   'Serviços Financeiros / Fintech',
+  'Imobiliário & Arquitetura',
   'Alimentação & Gastronomia',
-  'Imobiliário & Construção',
-  'Moda & Beleza',
+  'Moda & Luxo',
   'Outro Setor',
 ];
 
@@ -40,10 +41,10 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
     <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in">
       <div className="space-y-1">
         <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <User className="w-6 h-6 text-brand-500" /> Informações do Cliente & Empresa
+          <User className="w-6 h-6 text-lime-500" /> Diagnóstico do Cliente & Empresa
         </h2>
         <p className="text-sm text-slate-500 dark:text-slate-400">
-          Informe seus dados básicos para identificação do briefing e contato.
+          Informe seus dados básicos para direcionarmos a análise estratégica.
         </p>
       </div>
 
@@ -51,7 +52,7 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
         {/* Nome do Responsável */}
         <div className="space-y-2">
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-            Seu Nome Completo <span className="text-rose-500">*</span>
+            Seu Nome Completo <span className="text-coral-500">*</span>
           </label>
           <div className="relative">
             <User className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -61,7 +62,7 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
               value={data.clientName}
               onChange={(e) => updateData({ clientName: e.target.value })}
               placeholder="Ex: Carlos Silva"
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm"
             />
           </div>
         </div>
@@ -69,7 +70,7 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
         {/* Nome da Empresa */}
         <div className="space-y-2">
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-            Nome da Empresa / Marca <span className="text-rose-500">*</span>
+            Nome da Empresa / Marca <span className="text-coral-500">*</span>
           </label>
           <div className="relative">
             <Building className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -78,8 +79,8 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
               required
               value={data.companyName}
               onChange={(e) => updateData({ companyName: e.target.value })}
-              placeholder="Ex: Nexus Tech Studio"
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
+              placeholder="Ex: Nexus Studio"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm"
             />
           </div>
         </div>
@@ -87,7 +88,7 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
         {/* E-mail */}
         <div className="space-y-2">
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-            E-mail Profissional <span className="text-rose-500">*</span>
+            E-mail Profissional <span className="text-coral-500">*</span>
           </label>
           <div className="relative">
             <Mail className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -97,7 +98,7 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
               value={data.email}
               onChange={(e) => updateData({ email: e.target.value })}
               placeholder="carlos@empresa.com.br"
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm"
             />
           </div>
         </div>
@@ -114,24 +115,24 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
               value={data.phone}
               onChange={(e) => updateData({ phone: e.target.value })}
               placeholder="(11) 99999-8888"
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm"
             />
           </div>
         </div>
 
-        {/* Website Atual */}
+        {/* Website / Instagram Atual */}
         <div className="space-y-2">
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-            Website Atual (se houver)
+            Website ou Instagram Atual
           </label>
           <div className="relative">
             <Globe className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
-              type="url"
+              type="text"
               value={data.website}
               onChange={(e) => updateData({ website: e.target.value })}
-              placeholder="https://suaempresa.com.br"
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm"
+              placeholder="https://suaempresa.com.br ou @suamarca"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm"
             />
           </div>
         </div>
@@ -139,14 +140,14 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
         {/* Setor de Atuação */}
         <div className="space-y-2">
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-            Setor de Atuação
+            Segmento do Negócio
           </label>
           <div className="relative">
             <Briefcase className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <select
               value={data.industry}
               onChange={(e) => updateData({ industry: e.target.value })}
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm appearance-none cursor-pointer"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm appearance-none cursor-pointer"
             >
               {industries.map((ind) => (
                 <option key={ind} value={ind}>
@@ -161,7 +162,7 @@ export const StepClientInfo: React.FC<StepClientInfoProps> = ({
       <div className="flex justify-end pt-4">
         <button
           type="submit"
-          className="px-6 py-3 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl shadow-lg shadow-brand-500/25 transition-all text-sm"
+          className="px-6 py-3 bg-lime-500 hover:bg-lime-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-lime-500/20 transition-all text-sm"
         >
           Próxima Etapa →
         </button>
