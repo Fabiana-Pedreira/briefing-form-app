@@ -1,60 +1,189 @@
-export interface BriefingData {
-  // Step 1: Informações do Cliente & Empresa
-  clientName: string;
+export interface BriefingEsteticaData {
+  // 01. Sobre o negócio
   companyName: string;
-  email: string;
-  phone: string;
-  website: string;
-  industry: string;
+  yearsInMarket: string;
+  originStory: string;
+  teamStructure: string;
+  location: string;
+  mainServices: string;
+  topSellingService: string;
+  serviceToSellMore: string;
+  mainDifferential: string;
 
-  // Step 2: Objetivos do Projeto & Pilares Frame Mídia
-  projectType: string;
-  mainGoals: string[];
-  targetAudience: string;
-  competitors: string;
-  differentials: string;
+  // 02. Objetivos do negócio
+  goalsNextMonths: string;
+  growthFocus: string[]; // Novos clientes, Fidelizar atuais, Ticket médio
+  protocolsToPromote: string;
+  expansionPlans: string;
+  monthlyRevenueTarget: string;
+  newClientsMonthlyTarget: string;
+  satisfactoryResultDefinition: string;
 
-  // Step 3: Identidade Visual & Tom de Voz
-  brandStyle: string[];
-  primaryColor: string;
-  secondaryColor: string;
-  references: string;
-  toneOfVoice: string;
+  // 03. Público-alvo e clientes
+  idealClientProfile: string;
+  ageRange: string;
+  genderAudience: string;
+  neighborhoodsCities: string;
+  purchasingPower: string;
+  aestheticComplaints: string;
+  clientValues: string[]; // Preço, Confiança, Qualidade, Exclusividade, Resultados
+  objectionsBeforeBuying: string;
+  whyChooseYou: string;
 
-  // Step 4: Escopo & Requisitos Técnicos
-  requiredPages: string[];
-  features: string[];
-  budgetRange: string;
-  deadline: string;
-  additionalNotes: string;
+  // 04. Identidade e posicionamento da marca
+  desiredBrandPerception: string;
+  essenceWords: string;
+  brandAttributes: string[]; // Sofisticação, Acolhimento, Confiança, Modernidade, Naturalidade, Acessibilidade
+  marketPositioning: string; // Popular, Intermediário, Premium
+  brandStoryPurpose: string;
+  elementsToKeep: string;
+  whatNotToTransmit: string;
+  referenceClinics: string;
+  experienceDifferential: string;
+
+  // 05. Presença digital e conteúdo
+  activeSocialNetworks: string[];
+  topLeadChannel: string;
+  paidAdsExperience: string;
+  bestPerformingContent: string;
+  videoComfortLevel: string; // Sim, Às vezes, Não
+  professionalMediaAvailable: string;
+  frequentQuestions: string;
+  communicationTone: string[]; // Educativa, Sofisticada, Próxima, Comercial
+  contentRestrictions: string;
+
+  // 06. Comercial e atendimento
+  leadContactChannels: string[]; // WhatsApp, Instagram, Telefone, Site
+  salesAttendant: string;
+  definedSalesProcess: string;
+  avgResponseTime: string;
+  followUpProcess: string;
+  lostSalesReasons: string;
+  winbackStrategy: string;
+  conversionTracking: string;
+
+  // 07. Concorrência e mercado
+  mainCompetitors: string;
+  competitorsStrengths: string;
+  whatYouCanDoBetter: string;
+  competitorsPromotions: string;
+  competitiveEdgeType: string; // Preço, Experiência, Especialização, Diferenciação
+  unmetLocalNeeds: string;
+
+  // 08. Investimento, recursos e expectativas
+  agencyMonthlyBudget: string;
+  paidAdsMonthlyBudget: string;
+  approvalResponsible: string;
+  mediaProductionFrequency: string;
+  upcomingLaunchesDates: string;
+  agendaCapacityLimits: string;
+  agencyExpectations: string;
+  monthlyReportingExpectations: string;
+
+  // 09. Perguntas estratégicas específicas para estética
+  highestProfitMarginServices: string;
+  entryLeadMagnetServices: string;
+  packagesToStrengthen: string;
+  avgTicketPerClient: string;
+  purchasePattern: string; // Recorrente, Pontual, Misto
+  seasonalityFactors: string;
+  beforeAfterPolicy: string;
+  professionalsCredentials: string;
+  safetyResultsConcerns: string;
+  capacityForIncreasedDemand: string;
 }
 
-export const initialBriefingData: BriefingData = {
-  clientName: '',
+export const initialBriefingEsteticaData: BriefingEsteticaData = {
+  // 01. Sobre o negócio
   companyName: '',
-  email: '',
-  phone: '',
-  website: '',
-  industry: 'Tecnologia & Inovação',
+  yearsInMarket: '',
+  originStory: '',
+  teamStructure: 'Possuo uma equipe de profissionais',
+  location: '',
+  mainServices: '',
+  topSellingService: '',
+  serviceToSellMore: '',
+  mainDifferential: '',
 
-  projectType: 'Ecossistema Integrado (Estratégia + Audiovisual + Design)',
-  mainGoals: [
-    'Elevar percepção de valor (parar de disputar preço)',
-    'Construir narrativa audiovisual de alto impacto',
-  ],
-  targetAudience: '',
-  competitors: '',
-  differentials: '',
+  // 02. Objetivos do negócio
+  goalsNextMonths: '',
+  growthFocus: ['Atrair novos clientes', 'Aumentar ticket médio'],
+  protocolsToPromote: '',
+  expansionPlans: '',
+  monthlyRevenueTarget: '',
+  newClientsMonthlyTarget: '',
+  satisfactoryResultDefinition: '',
 
-  brandStyle: ['Moderno', 'Clean', 'High-tech / Premium'],
-  primaryColor: '#a3e635',
-  secondaryColor: '#ff5e36',
-  references: '',
-  toneOfVoice: 'Profissional, Autêntico & Estratégico',
+  // 03. Público-alvo e clientes
+  idealClientProfile: '',
+  ageRange: '25 a 50 anos',
+  genderAudience: 'Predominantemente Feminino',
+  neighborhoodsCities: '',
+  purchasingPower: 'Médio / Alto (Classes A e B)',
+  aestheticComplaints: '',
+  clientValues: ['Resultados Visíveis', 'Confiança & Segurança', 'Qualidade dos Produtos'],
+  objectionsBeforeBuying: '',
+  whyChooseYou: '',
 
-  requiredPages: ['Home', 'Posicionamento & Quem Somos', 'Soluções & Pilares', 'Contato / Aplicação'],
-  features: ['Formulário de Aplicação Qualificado', 'Integração com WhatsApp', 'SEO Otimizado'],
-  budgetRange: 'R$ 5.000 a R$ 10.000',
-  deadline: '30 dias',
-  additionalNotes: '',
+  // 04. Identidade e posicionamento da marca
+  desiredBrandPerception: '',
+  essenceWords: '',
+  brandAttributes: ['Sofisticação', 'Confiança', 'Naturalidade'],
+  marketPositioning: 'Premium',
+  brandStoryPurpose: '',
+  elementsToKeep: '',
+  whatNotToTransmit: '',
+  referenceClinics: '',
+  experienceDifferential: '',
+
+  // 05. Presença digital e conteúdo
+  activeSocialNetworks: ['Instagram', 'WhatsApp Business'],
+  topLeadChannel: 'WhatsApp',
+  paidAdsExperience: 'Já investi anteriormente',
+  bestPerformingContent: '',
+  videoComfortLevel: 'Sim, me sinto confortável',
+  professionalMediaAvailable: 'Sim, possuo fotos e vídeos da estrutura',
+  frequentQuestions: '',
+  communicationTone: ['Educativa', 'Sofisticada', 'Próxima'],
+  contentRestrictions: '',
+
+  // 06. Comercial e atendimento
+  leadContactChannels: ['WhatsApp', 'Instagram Direct'],
+  salesAttendant: '',
+  definedSalesProcess: 'Sim, temos script de atendimento',
+  avgResponseTime: 'Em até 15 minutos',
+  followUpProcess: '',
+  lostSalesReasons: '',
+  winbackStrategy: '',
+  conversionTracking: 'Acompanhamos parcialmente',
+
+  // 07. Concorrência e mercado
+  mainCompetitors: '',
+  competitorsStrengths: '',
+  whatYouCanDoBetter: '',
+  competitorsPromotions: '',
+  competitiveEdgeType: 'Experiência & Diferenciação',
+  unmetLocalNeeds: '',
+
+  // 08. Investimento, recursos e expectativas
+  agencyMonthlyBudget: 'R$ 2.000 a R$ 4.000',
+  paidAdsMonthlyBudget: 'R$ 1.000 a R$ 2.000',
+  approvalResponsible: '',
+  mediaProductionFrequency: 'Semanalmente',
+  upcomingLaunchesDates: '',
+  agendaCapacityLimits: '',
+  agencyExpectations: '',
+  monthlyReportingExpectations: '',
+
+  // 09. Perguntas estratégicas específicas para estética
+  highestProfitMarginServices: '',
+  entryLeadMagnetServices: '',
+  packagesToStrengthen: '',
+  avgTicketPerClient: '',
+  purchasePattern: 'Misto (Procedimentos pontuais e planos recorrentes)',
+  seasonalityFactors: '',
+  beforeAfterPolicy: '',
+  professionalsCredentials: '',
+  safetyResultsConcerns: '',
+  capacityForIncreasedDemand: '',
 };

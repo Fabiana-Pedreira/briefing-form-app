@@ -1,7 +1,19 @@
 'use client';
 
 import React from 'react';
-import { User, Target, Palette, CheckSquare, Send, Check } from 'lucide-react';
+import {
+  Building2,
+  Target,
+  Users,
+  Palette,
+  Share2,
+  MessageSquare,
+  Shield,
+  DollarSign,
+  HeartPulse,
+  Send,
+  Check,
+} from 'lucide-react';
 
 interface StepIndicatorProps {
   currentStep: number;
@@ -10,11 +22,16 @@ interface StepIndicatorProps {
 }
 
 const steps = [
-  { id: 1, label: 'Cliente & Empresa', icon: User },
-  { id: 2, label: 'Objetivos & Pilares', icon: Target },
-  { id: 3, label: 'Design & Estilo', icon: Palette },
-  { id: 4, label: 'Escopo & Prazos', icon: CheckSquare },
-  { id: 5, label: 'Revisão & Aplicação', icon: Send },
+  { id: 1, label: '01. Negócio', icon: Building2 },
+  { id: 2, label: '02. Objetivos', icon: Target },
+  { id: 3, label: '03. Público', icon: Users },
+  { id: 4, label: '04. Identidade', icon: Palette },
+  { id: 5, label: '05. Digital', icon: Share2 },
+  { id: 6, label: '06. Comercial', icon: MessageSquare },
+  { id: 7, label: '07. Mercado', icon: Shield },
+  { id: 8, label: '08. Verba', icon: DollarSign },
+  { id: 9, label: '09. Estética', icon: HeartPulse },
+  { id: 10, label: '10. Envio', icon: Send },
 ];
 
 export const StepIndicator: React.FC<StepIndicatorProps> = ({
@@ -25,17 +42,26 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
   const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
 
   return (
-    <div className="w-full mb-8 sm:mb-12">
+    <div className="w-full mb-6">
       {/* Top Progress Bar */}
-      <div className="relative w-full h-2.5 bg-zinc-200 dark:bg-zinc-900 rounded-full overflow-hidden mb-6">
+      <div className="flex items-center justify-between text-xs mb-2">
+        <span className="font-extrabold text-red-500 uppercase tracking-wider">
+          Sessão {currentStep} de {totalSteps}
+        </span>
+        <span className="font-bold text-lime-400 font-mono">
+          {Math.round(progressPercentage)}% Concluído
+        </span>
+      </div>
+
+      <div className="relative w-full h-2 bg-zinc-900 rounded-full overflow-hidden mb-5 border border-zinc-800">
         <div
-          className="h-full bg-gradient-to-r from-red-600 via-red-500 to-lime-500 transition-all duration-500 ease-out rounded-full shadow-sm"
+          className="h-full bg-gradient-to-r from-red-600 via-red-500 to-lime-400 transition-all duration-500 ease-out rounded-full shadow-sm"
           style={{ width: `${progressPercentage}%` }}
         />
       </div>
 
-      {/* Steps Row */}
-      <div className="grid grid-cols-5 gap-2 sm:gap-4">
+      {/* Grid / Scrollable Session Buttons */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-thin">
         {steps.map((step) => {
           const Icon = step.icon;
           const isCompleted = currentStep > step.id;
@@ -46,37 +72,20 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
               key={step.id}
               onClick={() => isCompleted && onStepClick(step.id)}
               disabled={!isCompleted && !isCurrent}
-              className={`flex flex-col items-center group text-center transition-all ${
-                isCompleted ? 'cursor-pointer' : 'cursor-default'
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold shrink-0 transition-all ${
+                isCurrent
+                  ? 'bg-red-600 text-white shadow-md shadow-red-500/20 ring-2 ring-red-500/30'
+                  : isCompleted
+                  ? 'bg-zinc-900 text-lime-400 border border-zinc-800 hover:border-zinc-700 cursor-pointer'
+                  : 'bg-zinc-950 text-zinc-600 border border-zinc-900 opacity-60 cursor-default'
               }`}
             >
-              <div
-                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center font-bold text-sm transition-all duration-300 shadow-md ${
-                  isCompleted
-                    ? 'bg-lime-500 text-slate-950 font-black shadow-lime-500/20'
-                    : isCurrent
-                    ? 'bg-gradient-to-tr from-red-600 to-red-500 text-white font-black shadow-red-500/30 scale-105 ring-4 ring-red-500/20'
-                    : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-400 dark:text-zinc-600 border border-zinc-200 dark:border-zinc-800'
-                }`}
-              >
-                {isCompleted ? (
-                  <Check className="w-5 h-5 stroke-[3]" />
-                ) : (
-                  <Icon className="w-5 h-5" />
-                )}
-              </div>
-
-              <span
-                className={`mt-2 text-xs font-semibold hidden md:block transition-colors ${
-                  isCurrent
-                    ? 'text-red-500 font-extrabold'
-                    : isCompleted
-                    ? 'text-lime-400 font-bold'
-                    : 'text-zinc-400 dark:text-zinc-600'
-                }`}
-              >
-                {step.label}
-              </span>
+              {isCompleted ? (
+                <Check className="w-3.5 h-3.5 stroke-[3] text-lime-400" />
+              ) : (
+                <Icon className="w-3.5 h-3.5" />
+              )}
+              <span>{step.label}</span>
             </button>
           );
         })}

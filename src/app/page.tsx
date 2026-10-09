@@ -1,30 +1,35 @@
 'use client';
 
 import React, { useState } from 'react';
-import { initialBriefingData, BriefingData } from '@/types/briefing';
+import { initialBriefingEsteticaData, BriefingEsteticaData } from '@/types/briefing';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { StepIndicator } from '@/components/StepIndicator';
 import { BriefingPreviewModal } from '@/components/BriefingPreviewModal';
-import { StepClientInfo } from '@/components/steps/StepClientInfo';
-import { StepProjectGoals } from '@/components/steps/StepProjectGoals';
-import { StepVisualIdentity } from '@/components/steps/StepVisualIdentity';
-import { StepScopeRequirements } from '@/components/steps/StepScopeRequirements';
-import { StepReviewSubmit } from '@/components/steps/StepReviewSubmit';
-import { Film } from 'lucide-react';
+import { Step01AboutBusiness } from '@/components/steps/Step01AboutBusiness';
+import { Step02BusinessGoals } from '@/components/steps/Step02BusinessGoals';
+import { Step03AudienceClients } from '@/components/steps/Step03AudienceClients';
+import { Step04BrandIdentity } from '@/components/steps/Step04BrandIdentity';
+import { Step05DigitalPresence } from '@/components/steps/Step05DigitalPresence';
+import { Step06CommercialSales } from '@/components/steps/Step06CommercialSales';
+import { Step07CompetitorsMarket } from '@/components/steps/Step07CompetitorsMarket';
+import { Step08InvestmentResources } from '@/components/steps/Step08InvestmentResources';
+import { Step09AestheticStrategy } from '@/components/steps/Step09AestheticStrategy';
+import { Step10ReviewSubmit } from '@/components/steps/Step10ReviewSubmit';
+import { Film, HeartPulse, Sparkles } from 'lucide-react';
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [briefingData, setBriefingData] = useState<BriefingData>(initialBriefingData);
+  const [briefingData, setBriefingData] = useState<BriefingEsteticaData>(initialBriefingEsteticaData);
   const [darkMode, setDarkMode] = useState(true);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-  const updateBriefingData = (fields: Partial<BriefingData>) => {
+  const updateBriefingData = (fields: Partial<BriefingEsteticaData>) => {
     setBriefingData((prev) => ({ ...prev, ...fields }));
   };
 
   const handleNext = () => {
-    if (currentStep < 5) setCurrentStep((prev) => prev + 1);
+    if (currentStep < 10) setCurrentStep((prev) => prev + 1);
   };
 
   const handlePrev = () => {
@@ -32,7 +37,7 @@ export default function Home() {
   };
 
   const handleReset = () => {
-    setBriefingData(initialBriefingData);
+    setBriefingData(initialBriefingEsteticaData);
     setCurrentStep(1);
   };
 
@@ -47,16 +52,16 @@ export default function Home() {
         />
 
         {/* Hero Section Banner - Frame Mídia Branding (Preto, Vermelho & Verde) */}
-        <section className="relative overflow-hidden pt-10 pb-6 px-4 text-center">
+        <section className="relative overflow-hidden pt-8 pb-4 px-4 text-center">
           <div className="absolute inset-0 -z-10 flex items-center justify-center opacity-25 pointer-events-none">
             <div className="w-[500px] h-[500px] bg-red-600/20 rounded-full blur-3xl animate-pulse-slow" />
             <div className="w-[350px] h-[350px] bg-lime-500/15 rounded-full blur-3xl" />
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="max-w-3xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-red-500/10 text-red-500 border border-red-500/30 shadow-sm">
-              <Film className="w-3.5 h-3.5 text-lime-400" />
-              <span>Frame Mídia • Consultoria Estratégica</span>
+              <HeartPulse className="w-3.5 h-3.5 text-lime-400" />
+              <span>Frame Mídia • Diagnóstico Estratégico de Estética & Saúde</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
@@ -66,54 +71,26 @@ export default function Home() {
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto font-medium leading-relaxed">
-              Não entregamos posts automáticos. Unimos{' '}
-              <strong className="text-slate-900 dark:text-white font-bold">
-                análise técnica e direção visual autêntica
-              </strong>{' '}
-              para gerar valor real a longo prazo.
+            <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto font-medium leading-relaxed">
+              Formulário completo de <strong className="text-white">09 sessões estratégicas</strong> para identificar gargalos comerciais, valor de marca e estratégias de alta margem de lucro.
             </p>
-
-            {/* Como Funciona - 3 Passos Rápidos */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 text-left max-w-2xl mx-auto">
-              <div className="p-3.5 rounded-2xl bg-white/60 dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-800 backdrop-blur-sm">
-                <span className="text-xs font-extrabold text-red-500">01. Suas Respostas</span>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-                  Compartilhe suas prioridades atuais em 3 minutos.
-                </p>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-white/60 dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-800 backdrop-blur-sm">
-                <span className="text-xs font-extrabold text-red-500">02. Nosso Olhar</span>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-                  Analisamos seu contexto para a melhor estratégia.
-                </p>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-white/60 dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-800 backdrop-blur-sm">
-                <span className="text-xs font-extrabold text-red-500">03. Nosso Contato</span>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-                  Retornaremos para alinhar a solução ideal.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
 
         {/* Main Content Area */}
-        <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6">
-          <div className="glass-panel p-6 sm:p-8 md:p-10 rounded-3xl shadow-2xl shadow-red-500/5 transition-all bg-white dark:bg-[#0d0d0d] border-zinc-200 dark:border-zinc-800">
+        <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-4">
+          <div className="glass-panel p-5 sm:p-8 rounded-3xl shadow-2xl shadow-red-500/5 transition-all bg-white dark:bg-[#0d0d0d] border-zinc-200 dark:border-zinc-800">
             {/* Step Indicator */}
             <StepIndicator
               currentStep={currentStep}
-              totalSteps={5}
+              totalSteps={10}
               onStepClick={(step) => setCurrentStep(step)}
             />
 
             {/* Dynamic Step View */}
-            <div className="mt-6">
+            <div className="mt-4">
               {currentStep === 1 && (
-                <StepClientInfo
+                <Step01AboutBusiness
                   data={briefingData}
                   updateData={updateBriefingData}
                   onNext={handleNext}
@@ -121,7 +98,7 @@ export default function Home() {
               )}
 
               {currentStep === 2 && (
-                <StepProjectGoals
+                <Step02BusinessGoals
                   data={briefingData}
                   updateData={updateBriefingData}
                   onNext={handleNext}
@@ -130,7 +107,7 @@ export default function Home() {
               )}
 
               {currentStep === 3 && (
-                <StepVisualIdentity
+                <Step03AudienceClients
                   data={briefingData}
                   updateData={updateBriefingData}
                   onNext={handleNext}
@@ -139,7 +116,7 @@ export default function Home() {
               )}
 
               {currentStep === 4 && (
-                <StepScopeRequirements
+                <Step04BrandIdentity
                   data={briefingData}
                   updateData={updateBriefingData}
                   onNext={handleNext}
@@ -148,7 +125,52 @@ export default function Home() {
               )}
 
               {currentStep === 5 && (
-                <StepReviewSubmit
+                <Step05DigitalPresence
+                  data={briefingData}
+                  updateData={updateBriefingData}
+                  onNext={handleNext}
+                  onPrev={handlePrev}
+                />
+              )}
+
+              {currentStep === 6 && (
+                <Step06CommercialSales
+                  data={briefingData}
+                  updateData={updateBriefingData}
+                  onNext={handleNext}
+                  onPrev={handlePrev}
+                />
+              )}
+
+              {currentStep === 7 && (
+                <Step07CompetitorsMarket
+                  data={briefingData}
+                  updateData={updateBriefingData}
+                  onNext={handleNext}
+                  onPrev={handlePrev}
+                />
+              )}
+
+              {currentStep === 8 && (
+                <Step08InvestmentResources
+                  data={briefingData}
+                  updateData={updateBriefingData}
+                  onNext={handleNext}
+                  onPrev={handlePrev}
+                />
+              )}
+
+              {currentStep === 9 && (
+                <Step09AestheticStrategy
+                  data={briefingData}
+                  updateData={updateBriefingData}
+                  onNext={handleNext}
+                  onPrev={handlePrev}
+                />
+              )}
+
+              {currentStep === 10 && (
+                <Step10ReviewSubmit
                   data={briefingData}
                   onPrev={handlePrev}
                   onReset={handleReset}
