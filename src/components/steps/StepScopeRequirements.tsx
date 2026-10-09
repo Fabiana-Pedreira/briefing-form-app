@@ -73,17 +73,17 @@ export const StepScopeRequirements: React.FC<StepScopeRequirementsProps> = ({
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="space-y-1">
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <CheckSquare className="w-6 h-6 text-lime-500" /> Escopo & Nível de Investimento
+        <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <CheckSquare className="w-6 h-6 text-red-500" /> Escopo & Nível de Investimento
         </h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
           Selecione a estrutura, entregáveis e estimativa de investimento para o projeto.
         </p>
       </div>
 
       {/* Estrutura / Entregáveis */}
       <div className="space-y-3">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+        <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
           Páginas ou Estruturas Necessárias
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -96,12 +96,14 @@ export const StepScopeRequirements: React.FC<StepScopeRequirementsProps> = ({
                 onClick={() => togglePage(page)}
                 className={`p-3 rounded-xl border text-left font-medium text-xs sm:text-sm transition-all flex items-center justify-between ${
                   selected
-                    ? 'border-lime-500 bg-lime-500/10 text-lime-600 dark:text-lime-400 font-bold'
-                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                    ? 'border-red-500 bg-red-500/10 text-red-400 font-bold'
+                    : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-300'
                 }`}
               >
                 <span>{page}</span>
-                <span className="text-xs">{selected ? '☑' : '☐'}</span>
+                <span className={`text-xs ${selected ? 'text-lime-400 font-bold' : ''}`}>
+                  {selected ? '☑' : '☐'}
+                </span>
               </button>
             );
           })}
@@ -110,7 +112,7 @@ export const StepScopeRequirements: React.FC<StepScopeRequirementsProps> = ({
 
       {/* Funcionalidades & Serviços */}
       <div className="space-y-3">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+        <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
           Serviços & Recursos Desejados
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -123,12 +125,14 @@ export const StepScopeRequirements: React.FC<StepScopeRequirementsProps> = ({
                 onClick={() => toggleFeature(feature)}
                 className={`p-3 rounded-xl border text-left font-medium text-xs sm:text-sm transition-all flex items-center justify-between ${
                   selected
-                    ? 'border-coral-500 bg-coral-500/10 text-coral-600 dark:text-coral-400 font-bold'
-                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                    ? 'border-lime-500 bg-lime-500/10 text-lime-400 font-bold'
+                    : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-300'
                 }`}
               >
                 <span>{feature}</span>
-                <span className="text-xs">{selected ? '☑' : '☐'}</span>
+                <span className={`text-xs ${selected ? 'text-lime-400 font-bold' : ''}`}>
+                  {selected ? '☑' : '☐'}
+                </span>
               </button>
             );
           })}
@@ -138,15 +142,15 @@ export const StepScopeRequirements: React.FC<StepScopeRequirementsProps> = ({
       {/* Orçamento & Prazo */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <div className="space-y-2">
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-            <DollarSign className="w-4 h-4 text-lime-500" /> Nível de Investimento Pretendido
+          <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+            <DollarSign className="w-4 h-4 text-lime-400" /> Nível de Investimento Pretendido
           </label>
           <div className="relative">
-            <Sliders className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Sliders className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
             <select
               value={data.budgetRange}
               onChange={(e) => updateData({ budgetRange: e.target.value })}
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm cursor-pointer"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500 transition-all text-sm cursor-pointer"
             >
               {budgetOptions.map((opt) => (
                 <option key={opt} value={opt}>
@@ -158,15 +162,15 @@ export const StepScopeRequirements: React.FC<StepScopeRequirementsProps> = ({
         </div>
 
         <div className="space-y-2">
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-            <Calendar className="w-4 h-4 text-coral-500" /> Prazo Desejado
+          <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+            <Calendar className="w-4 h-4 text-red-500" /> Prazo Desejado
           </label>
           <div className="relative">
-            <Calendar className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Calendar className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
             <select
               value={data.deadline}
               onChange={(e) => updateData({ deadline: e.target.value })}
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm cursor-pointer"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500 transition-all text-sm cursor-pointer"
             >
               {deadlineOptions.map((opt) => (
                 <option key={opt} value={opt}>
@@ -180,17 +184,17 @@ export const StepScopeRequirements: React.FC<StepScopeRequirementsProps> = ({
 
       {/* Observações Adicionais */}
       <div className="space-y-2">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+        <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
           Observações Adicionais ou Detalhes Relevantes
         </label>
         <div className="relative">
-          <FileText className="w-5 h-5 absolute left-3 top-3 text-slate-400" />
+          <FileText className="w-5 h-5 absolute left-3 top-3 text-zinc-400" />
           <textarea
             rows={3}
             value={data.additionalNotes}
             onChange={(e) => updateData({ additionalNotes: e.target.value })}
             placeholder="Conte-nos mais sobre os gargalos atuais e suas expectativas para o projeto..."
-            className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm"
+            className="w-full pl-10 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all text-sm"
           />
         </div>
       </div>
@@ -199,14 +203,14 @@ export const StepScopeRequirements: React.FC<StepScopeRequirementsProps> = ({
         <button
           type="button"
           onClick={onPrev}
-          className="px-6 py-3 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold rounded-xl transition-all text-sm"
+          className="px-6 py-3 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-300 font-semibold rounded-xl transition-all text-sm"
         >
           ← Voltar
         </button>
         <button
           type="button"
           onClick={onNext}
-          className="px-6 py-3 bg-lime-500 hover:bg-lime-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-lime-500/20 transition-all text-sm"
+          className="px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-extrabold rounded-xl shadow-lg shadow-red-500/20 transition-all text-sm"
         >
           Revisar & Aplicar →
         </button>

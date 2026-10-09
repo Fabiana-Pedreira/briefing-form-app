@@ -27,9 +27,9 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
   return (
     <div className="w-full mb-8 sm:mb-12">
       {/* Top Progress Bar */}
-      <div className="relative w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mb-6">
+      <div className="relative w-full h-2.5 bg-zinc-200 dark:bg-zinc-900 rounded-full overflow-hidden mb-6">
         <div
-          className="h-full bg-gradient-to-r from-lime-500 via-lime-400 to-coral-500 transition-all duration-500 ease-out rounded-full shadow-sm"
+          className="h-full bg-gradient-to-r from-red-600 via-red-500 to-lime-500 transition-all duration-500 ease-out rounded-full shadow-sm"
           style={{ width: `${progressPercentage}%` }}
         />
       </div>
@@ -53,10 +53,10 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
               <div
                 className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center font-bold text-sm transition-all duration-300 shadow-md ${
                   isCompleted
-                    ? 'bg-emerald-500 text-white shadow-emerald-500/20'
+                    ? 'bg-lime-500 text-slate-950 font-black shadow-lime-500/20'
                     : isCurrent
-                    ? 'bg-gradient-to-tr from-lime-500 to-lime-400 text-slate-950 font-black shadow-lime-500/30 scale-105 ring-4 ring-lime-500/20'
-                    : 'bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700/80'
+                    ? 'bg-gradient-to-tr from-red-600 to-red-500 text-white font-black shadow-red-500/30 scale-105 ring-4 ring-red-500/20'
+                    : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-400 dark:text-zinc-600 border border-zinc-200 dark:border-zinc-800'
                 }`}
               >
                 {isCompleted ? (
@@ -69,10 +69,10 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
               <span
                 className={`mt-2 text-xs font-semibold hidden md:block transition-colors ${
                   isCurrent
-                    ? 'text-lime-600 dark:text-lime-400 font-bold'
+                    ? 'text-red-500 font-extrabold'
                     : isCompleted
-                    ? 'text-slate-700 dark:text-slate-300'
-                    : 'text-slate-400 dark:text-slate-500'
+                    ? 'text-lime-400 font-bold'
+                    : 'text-zinc-400 dark:text-zinc-600'
                 }`}
               >
                 {step.label}

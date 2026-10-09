@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { BriefingData } from '@/types/briefing';
-import { Target, Users, ShieldAlert, Award, Layers, Zap } from 'lucide-react';
+import { Target, Users, ShieldAlert, Award, Zap } from 'lucide-react';
 
 interface StepProjectGoalsProps {
   data: BriefingData;
@@ -60,18 +60,18 @@ export const StepProjectGoals: React.FC<StepProjectGoalsProps> = ({
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="space-y-1">
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <Target className="w-6 h-6 text-lime-500" /> Frentes de Impacto & Objetivos
+        <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <Target className="w-6 h-6 text-red-500" /> Frentes de Impacto & Objetivos
         </h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
           Selecione onde sua marca precisa atuar agora para gerar valor real a longo prazo.
         </p>
       </div>
 
       {/* Frentes de Impacto (Frame Mídia) */}
       <div className="space-y-3">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-2">
-          <Zap className="w-4 h-4 text-lime-500" /> Qual a principal frente de atuação desejada?
+        <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+          <Zap className="w-4 h-4 text-lime-400" /> Qual a principal frente de atuação desejada?
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {framePillars.map((pilar) => {
@@ -83,15 +83,15 @@ export const StepProjectGoals: React.FC<StepProjectGoalsProps> = ({
                 onClick={() => updateData({ projectType: pilar.name })}
                 className={`p-4 rounded-2xl border text-left transition-all space-y-1 ${
                   selected
-                    ? 'border-lime-500 bg-lime-500/10 text-slate-900 dark:text-white ring-2 ring-lime-500/30'
-                    : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
+                    ? 'border-red-500 bg-red-500/10 text-slate-900 dark:text-white ring-2 ring-red-500/30'
+                    : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-700'
                 }`}
               >
                 <div className="flex items-center gap-2 font-bold text-sm text-slate-900 dark:text-white">
-                  <span className={`w-2 h-2 rounded-full ${selected ? 'bg-lime-500' : 'bg-slate-400'}`} />
-                  {pilar.name}
+                  <span className={`w-2.5 h-2.5 rounded-full ${selected ? 'bg-lime-400' : 'bg-zinc-600'}`} />
+                  <span className={selected ? 'text-red-500 font-black' : ''}>{pilar.name}</span>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed pl-4">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed pl-4">
                   {pilar.desc}
                 </p>
               </button>
@@ -102,7 +102,7 @@ export const StepProjectGoals: React.FC<StepProjectGoalsProps> = ({
 
       {/* Objetivos Principais */}
       <div className="space-y-3">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+        <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
           Objetivos & Prioridades (Escolha quantas desejar)
         </label>
         <div className="flex flex-wrap gap-2">
@@ -115,8 +115,8 @@ export const StepProjectGoals: React.FC<StepProjectGoalsProps> = ({
                 onClick={() => toggleGoal(goal)}
                 className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all border ${
                   active
-                    ? 'bg-lime-500 text-slate-950 border-lime-500 font-bold shadow-sm'
-                    : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                    ? 'bg-red-600 text-white border-red-600 font-bold shadow-sm'
+                    : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-800'
                 }`}
               >
                 {active ? '✓ ' : '+ '}
@@ -130,33 +130,33 @@ export const StepProjectGoals: React.FC<StepProjectGoalsProps> = ({
       {/* Público Alvo & Concorrentes */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <div className="space-y-2">
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+          <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
             Público-Alvo
           </label>
           <div className="relative">
-            <Users className="w-5 h-5 absolute left-3 top-3 text-slate-400" />
+            <Users className="w-5 h-5 absolute left-3 top-3 text-zinc-400" />
             <textarea
               rows={3}
               value={data.targetAudience}
               onChange={(e) => updateData({ targetAudience: e.target.value })}
               placeholder="Ex: Decisores e líderes de empresas que buscam alta maturidade visual..."
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all text-sm"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+          <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
             Concorrentes Diretos ou Indiretos
           </label>
           <div className="relative">
-            <ShieldAlert className="w-5 h-5 absolute left-3 top-3 text-slate-400" />
+            <ShieldAlert className="w-5 h-5 absolute left-3 top-3 text-zinc-400" />
             <textarea
               rows={3}
               value={data.competitors}
               onChange={(e) => updateData({ competitors: e.target.value })}
               placeholder="Ex: Marca A, Consultoria B..."
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all text-sm"
             />
           </div>
         </div>
@@ -164,17 +164,17 @@ export const StepProjectGoals: React.FC<StepProjectGoalsProps> = ({
 
       {/* Diferenciais da Marca */}
       <div className="space-y-2">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+        <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
           O Que Torna Sua Marca Única? (Diferenciais)
         </label>
         <div className="relative">
-          <Award className="w-5 h-5 absolute left-3 top-3 text-slate-400" />
+          <Award className="w-5 h-5 absolute left-3 top-3 text-zinc-400" />
           <textarea
             rows={2}
             value={data.differentials}
             onChange={(e) => updateData({ differentials: e.target.value })}
             placeholder="Ex: Produto/serviço validado com atendimento técnico próximo e entrega sob medida..."
-            className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lime-500 transition-all text-sm"
+            className="w-full pl-10 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all text-sm"
           />
         </div>
       </div>
@@ -183,14 +183,14 @@ export const StepProjectGoals: React.FC<StepProjectGoalsProps> = ({
         <button
           type="button"
           onClick={onPrev}
-          className="px-6 py-3 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold rounded-xl transition-all text-sm"
+          className="px-6 py-3 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-300 font-semibold rounded-xl transition-all text-sm"
         >
           ← Voltar
         </button>
         <button
           type="button"
           onClick={onNext}
-          className="px-6 py-3 bg-lime-500 hover:bg-lime-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-lime-500/20 transition-all text-sm"
+          className="px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-extrabold rounded-xl shadow-lg shadow-red-500/20 transition-all text-sm"
         >
           Próxima Etapa →
         </button>

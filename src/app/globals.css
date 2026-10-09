@@ -5,18 +5,18 @@
 @layer base {
   :root {
     --bg-primary: #f8fafc;
-    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-bg: rgba(255, 255, 255, 0.95);
     --border-color: #e2e8f0;
     --text-primary: #0f172a;
     --text-secondary: #475569;
   }
 
   .dark {
-    --bg-primary: #080c14;
-    --card-bg: rgba(17, 23, 38, 0.85);
-    --border-color: #1e293b;
+    --bg-primary: #000000;
+    --card-bg: rgba(13, 13, 13, 0.95);
+    --border-color: #222222;
     --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
+    --text-secondary: #a1a1aa;
   }
 
   body {
@@ -37,15 +37,16 @@
   border: 1px solid var(--border-color);
 }
 
-.glass-pill {
-  background: rgba(132, 204, 22, 0.1);
+.glass-pill-lime {
+  background: rgba(132, 204, 22, 0.12);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(132, 204, 22, 0.25);
+  border: 1px solid rgba(132, 204, 22, 0.3);
 }
 
-.dark .glass-pill {
-  background: rgba(132, 204, 22, 0.15);
-  border: 1px solid rgba(132, 204, 22, 0.3);
+.glass-pill-red {
+  background: rgba(239, 68, 68, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 /* Custom Scrollbar */
@@ -54,51 +55,51 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
+  background: #262626;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
+  background: #ef4444;
 }
 
-/* Lime Underline Accent */
-.lime-underline {
+/* Red Underline Accent */
+.red-underline {
   position: relative;
   display: inline-block;
 }
 
-.lime-underline::after {
+.red-underline::after {
   content: '';
   position: absolute;
   bottom: 2px;
   left: 0;
   width: 100%;
   height: 4px;
-  background: #a3e635;
+  background: #ef4444;
   border-radius: 2px;
   z-index: -1;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
-/* Gradient Text for Frame Mídia */
-.gradient-text-lime {
-  background: linear-gradient(135deg, #a3e635 0%, #84cc16 50%, #4d7c0f 100%);
+/* Gradient Text for Red Highlight */
+.gradient-text-red {
+  background: linear-gradient(135deg, #ff2e4c 0%, #ef4444 50%, #dc2626 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.gradient-text-coral {
-  background: linear-gradient(135deg, #ff7e67 0%, #ff5e36 100%);
+.gradient-text-lime {
+  background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* Input Focus Glow */
 .glow-focus:focus-within {
-  box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.3);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
 }

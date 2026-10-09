@@ -9,32 +9,29 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        red: {
+          400: '#f87171',
+          500: '#ef4444',
+          600: '#dc2626',
+          700: '#b91c1c',
+          bright: '#ff2e4c',
+        },
         lime: {
           400: '#a3e635',
           500: '#84cc16',
           600: '#65a30d',
           electric: '#ccff00',
         },
-        coral: {
-          400: '#ff7e67',
-          500: '#ff5e36',
-          600: '#e04822',
-        },
         brand: {
-          50: '#f7fee7',
-          100: '#ecfccb',
-          200: '#d9f99d',
-          300: '#bef264',
-          400: '#a3e635',
-          500: '#84cc16',
-          600: '#65a30d',
-          700: '#4d7c0f',
-          800: '#3f6212',
-          900: '#365314',
+          50: '#fef2f2',
+          100: '#fee2e2',
+          500: '#ef4444',
+          600: '#dc2626',
+          700: '#b91c1c',
         },
-        darkBg: '#080c14',
-        darkCard: '#111726',
-        darkBorder: '#1e293b',
+        darkBg: '#000000',
+        darkCard: '#0d0d0d',
+        darkBorder: '#222222',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

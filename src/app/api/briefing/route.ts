@@ -1,5 +1,15 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
+export async function GET() {
+  return NextResponse.json({
+    status: 'online',
+    service: 'Frame Mídia Briefing API',
+    timestamp: new Date().toISOString(),
+  });
+}
+
 export async function POST(request: Request) {
   try {
     const data = await request.json();
@@ -37,11 +47,11 @@ export async function POST(request: Request) {
                 fields: [
                   { name: 'Cliente', value: data.clientName, inline: true },
                   { name: 'E-mail', value: data.email, inline: true },
-                  { name: 'Tipo de Projeto', value: data.projectType, inline: true },
-                  { name: 'Orçamento', value: data.budgetRange, inline: true },
+                  { name: 'Frente de Atuação', value: data.projectType, inline: true },
+                  { name: 'Investimento', value: data.budgetRange, inline: true },
                   { name: 'Prazo Desejado', value: data.deadline, inline: true },
                 ],
-                color: 0x6366f1,
+                color: 0xef4444,
               },
             ],
           }),
@@ -54,7 +64,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       briefingId,
-      message: 'Briefing enviado com sucesso! Nossa equipe entrará em contato em breve.',
+      message: 'Briefing enviado com sucesso! A equipe da Frame Mídia entrará em contato em breve.',
       timestamp,
     });
   } catch (error) {
