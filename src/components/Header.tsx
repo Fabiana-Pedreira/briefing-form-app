@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={onOpenAgencyAdmin}
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-lime-400 bg-lime-500/10 hover:bg-lime-500/20 rounded-xl transition-all border border-lime-500/30"
-            title="Acesso Restrito da Agência Frame Mídia (Senha: 9396)"
+            title="Acesso Restrito da Agência Frame Mídia"
           >
             <Lock className="w-3.5 h-3.5 text-red-500" />
             <span className="hidden sm:inline">Área da Agência</span>

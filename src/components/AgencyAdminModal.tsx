@@ -83,7 +83,7 @@ export const AgencyAdminModal: React.FC<AgencyAdminModalProps> = ({
                 required
                 value={passwordInput}
                 onChange={(e) => setPasswordInput(e.target.value)}
-                placeholder="Digite a senha (ex: 9396)"
+                placeholder="Digite a sua senha de acesso"
                 className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-black text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm tracking-widest"
               />
             </div>
