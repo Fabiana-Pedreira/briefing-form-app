@@ -182,7 +182,7 @@ Destino: ${AGENCY_EMAIL}
 
       <h2>03. Produtos, Serviços e Proposta de Valor</h2>
       <p><strong>Mais Vendido:</strong> ${data.topSellingProducts || 'Não informado'}</p>
-      <p><strong>Diferenciais:</strong> ${data.keyUniqueDifferentials || 'Não informado'}</p>
+      <p><strong>Diferenciais:</strong> ${data.mainDifferentials || 'Não informado'}</p>
 
       <h2>04. Público-Alvo</h2>
       <p><strong>Cliente Ideal:</strong> ${data.idealClientToConquer || 'Não informado'}</p>
