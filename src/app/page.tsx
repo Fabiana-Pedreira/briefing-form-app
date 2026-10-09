@@ -52,11 +52,22 @@ export default function Home() {
   const [esteticaData, setEsteticaData] = useState<BriefingEsteticaData>(initialBriefingEsteticaData);
   const [geralData, setGeralData] = useState<BriefingGeralData>(initialBriefingGeralData);
 
-  // Read saved briefing type from localStorage if available
+  // Read saved briefing type from URL query parameter or localStorage
   useEffect(() => {
-    const savedType = localStorage.getItem('frame_midia_briefing_type');
-    if (savedType === 'estetica' || savedType === 'geral') {
-      setBriefingType(savedType);
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const typeParam = urlParams.get('type');
+
+      if (typeParam === 'estetica' || typeParam === 'geral') {
+        setBriefingType(typeParam);
+        localStorage.setItem('frame_midia_briefing_type', typeParam);
+        return;
+      }
+
+      const savedType = localStorage.getItem('frame_midia_briefing_type');
+      if (savedType === 'estetica' || savedType === 'geral') {
+        setBriefingType(savedType);
+      }
     }
   }, []);
 

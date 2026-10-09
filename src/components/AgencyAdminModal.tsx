@@ -1,7 +1,17 @@
-'use client';
-
 import React, { useState } from 'react';
-import { Lock, Unlock, Check, Sparkles, X, ShieldAlert, HeartPulse, Building2 } from 'lucide-react';
+import {
+  Lock,
+  Unlock,
+  Check,
+  Sparkles,
+  X,
+  ShieldAlert,
+  HeartPulse,
+  Building2,
+  Copy,
+  MessageCircle,
+  Share2,
+} from 'lucide-react';
 
 interface AgencyAdminModalProps {
   isOpen: boolean;
@@ -19,6 +29,7 @@ export const AgencyAdminModal: React.FC<AgencyAdminModalProps> = ({
   const [passwordInput, setPasswordInput] = useState('');
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [copiedType, setCopiedType] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -32,9 +43,32 @@ export const AgencyAdminModal: React.FC<AgencyAdminModalProps> = ({
     }
   };
 
+  const getBriefingUrl = (type: 'estetica' | 'geral') => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    return `${origin}/?type=${type}`;
+  };
+
+  const copyLink = (type: 'estetica' | 'geral') => {
+    const url = getBriefingUrl(type);
+    navigator.clipboard.writeText(url);
+    setCopiedType(type);
+    setTimeout(() => setCopiedType(null), 2000);
+  };
+
+  const sendWhatsAppLink = (type: 'estetica' | 'geral') => {
+    const url = getBriefingUrl(type);
+    const title = type === 'estetica' ? 'Briefing de Estética & Saúde' : 'Briefing Geral de Negócios';
+    const message = `Olá! 🚀 Segue o link do *${title}* da *Frame Mídia* para iniciarmos o seu projeto:
+
+${url}
+
+Por favor, preencha as etapas para alinharmos o seu posicionamento!`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
   const handleSelect = (type: 'estetica' | 'geral') => {
     onSelectBriefingType(type);
-    alert(`Briefing alterado com sucesso para: ${type === 'estetica' ? 'Estética & Saúde (09 Sessões)' : 'Geral de Negócios (11 Sessões)'}`);
+    alert(`Briefing alterado para: ${type === 'estetica' ? 'Estética & Saúde (09 Sessões)' : 'Geral de Negócios (11 Sessões)'}`);
     onClose();
   };
 
@@ -52,7 +86,7 @@ export const AgencyAdminModal: React.FC<AgencyAdminModalProps> = ({
                 Painel Restrito da Agência <span className="text-red-500">Frame Mídia</span>
               </h3>
               <p className="text-xs text-zinc-400">
-                {isUnlocked ? 'Selecione o formulário ativo para o cliente' : 'Digite a senha da equipe para gerenciar briefings'}
+                {isUnlocked ? 'Selecione e compartilhe o formulário com o cliente' : 'Digite a senha da equipe para gerenciar briefings'}
               </p>
             </div>
           </div>
@@ -100,24 +134,22 @@ export const AgencyAdminModal: React.FC<AgencyAdminModalProps> = ({
           <div className="space-y-4">
             <div className="p-3 rounded-xl bg-lime-500/10 border border-lime-500/30 text-lime-400 text-xs flex items-center justify-between">
               <span className="flex items-center gap-1.5 font-bold">
-                <Sparkles className="w-4 h-4 text-red-500" /> Painel Desbloqueado
+                <Sparkles className="w-4 h-4 text-red-500" /> Painel da Agência Desbloqueado
               </span>
               <span className="font-mono text-[10px] uppercase bg-lime-500/20 px-2 py-0.5 rounded">Equipe Frame Mídia</span>
             </div>
 
             <p className="text-xs text-zinc-300 font-semibold">
-              Selecione qual briefing ficará visível para a cliente preencher nesta página:
+              Selecione e envie o link direto para o seu cliente preencher:
             </p>
 
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 gap-3.5">
               {/* Option 1: Estética & Saúde */}
-              <button
-                type="button"
-                onClick={() => handleSelect('estetica')}
-                className={`p-4 rounded-xl border text-left transition-all space-y-1.5 ${
+              <div
+                className={`p-4 rounded-xl border transition-all space-y-3 ${
                   currentBriefingType === 'estetica'
                     ? 'border-red-500 bg-red-500/10 ring-2 ring-red-500/30'
-                    : 'border-zinc-800 bg-zinc-900 hover:border-zinc-700'
+                    : 'border-zinc-800 bg-zinc-900'
                 }`}
               >
                 <div className="flex items-center justify-between font-extrabold text-sm">
@@ -125,22 +157,46 @@ export const AgencyAdminModal: React.FC<AgencyAdminModalProps> = ({
                     <HeartPulse className="w-4 h-4 text-red-500" /> 1. Briefing de Estética & Saúde (09 Sessões)
                   </span>
                   {currentBriefingType === 'estetica' && (
-                    <span className="text-xs bg-red-600 text-white px-2 py-0.5 rounded-full font-bold">Ativo</span>
+                    <span className="text-xs bg-red-600 text-white px-2 py-0.5 rounded-full font-bold">Ativo na Tela</span>
                   )}
                 </div>
-                <p className="text-xs text-zinc-400 leading-relaxed pl-6">
-                  Questionário focado para Clínicas Estéticas, Médicas e Saúde (Margem de lucro, normas de fotos, tratamentos porta de entrada, etc).
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Questionário focado para Clínicas de Estética, Médicas e Saúde.
                 </p>
-              </button>
+
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => handleSelect('estetica')}
+                    className="px-3 py-1.5 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg text-xs transition-all"
+                  >
+                    Ativar no Site
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => copyLink('estetica')}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold rounded-lg text-xs transition-all border border-zinc-700"
+                  >
+                    <Copy className="w-3.5 h-3.5 text-lime-400" />
+                    {copiedType === 'estetica' ? 'Link Copiado!' : 'Copiar Link do Cliente'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => sendWhatsAppLink('estetica')}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs transition-all"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    Enviar no WhatsApp
+                  </button>
+                </div>
+              </div>
 
               {/* Option 2: Geral de Negócios */}
-              <button
-                type="button"
-                onClick={() => handleSelect('geral')}
-                className={`p-4 rounded-xl border text-left transition-all space-y-1.5 ${
+              <div
+                className={`p-4 rounded-xl border transition-all space-y-3 ${
                   currentBriefingType === 'geral'
                     ? 'border-red-500 bg-red-500/10 ring-2 ring-red-500/30'
-                    : 'border-zinc-800 bg-zinc-900 hover:border-zinc-700'
+                    : 'border-zinc-800 bg-zinc-900'
                 }`}
               >
                 <div className="flex items-center justify-between font-extrabold text-sm">
@@ -148,13 +204,39 @@ export const AgencyAdminModal: React.FC<AgencyAdminModalProps> = ({
                     <Building2 className="w-4 h-4 text-lime-400" /> 2. Briefing Geral de Negócios (11 Sessões)
                   </span>
                   {currentBriefingType === 'geral' && (
-                    <span className="text-xs bg-red-600 text-white px-2 py-0.5 rounded-full font-bold">Ativo</span>
+                    <span className="text-xs bg-red-600 text-white px-2 py-0.5 rounded-full font-bold">Ativo na Tela</span>
                   )}
                 </div>
-                <p className="text-xs text-zinc-400 leading-relaxed pl-6">
-                  Questionário completo de diagnóstico corporativo/comercial amplo (11 sessões: História, Posicionamento, Produtos, Mercado, Relacionamento, etc).
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Questionário completo corporativo/comercial amplo (11 sessões).
                 </p>
-              </button>
+
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => handleSelect('geral')}
+                    className="px-3 py-1.5 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg text-xs transition-all"
+                  >
+                    Ativar no Site
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => copyLink('geral')}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold rounded-lg text-xs transition-all border border-zinc-700"
+                  >
+                    <Copy className="w-3.5 h-3.5 text-lime-400" />
+                    {copiedType === 'geral' ? 'Link Copiado!' : 'Copiar Link do Cliente'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => sendWhatsAppLink('geral')}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs transition-all"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    Enviar no WhatsApp
+                  </button>
+                </div>
+              </div>
             </div>
 
             <div className="pt-2 text-center">
