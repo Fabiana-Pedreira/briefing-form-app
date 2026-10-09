@@ -17,6 +17,7 @@ import {
   Shield,
   DollarSign,
   Sparkles,
+  MessageCircle,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -146,6 +147,19 @@ export const StepGeral12ReviewSubmit: React.FC<StepProps> = ({
     downloadAnchor.remove();
   };
 
+  const openWhatsAppSend = () => {
+    const message = `Olá equipe Frame Mídia! 🚀 Concluí o preenchimento do Briefing Geral de Negócios (#${briefingId}).
+
+*Empresa:* ${data.companyName}
+*Segmento:* ${data.industrySegment || 'Não informado'}
+*Objetivo Principais:* ${data.goals6to12Months || 'Não informado'}
+
+Gostaria de agendar nosso alinhamento estratégico!`;
+
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/?text=${encoded}`, '_blank');
+  };
+
   if (submitted) {
     return (
       <div className="text-center py-10 space-y-6 animate-fade-in">
@@ -168,11 +182,19 @@ export const StepGeral12ReviewSubmit: React.FC<StepProps> = ({
 
         <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
           <button
+            onClick={openWhatsAppSend}
+            className="flex items-center gap-2 px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl text-sm transition-all shadow-lg shadow-emerald-600/20"
+          >
+            <MessageCircle className="w-4 h-4" />
+            Enviar Confirmação no WhatsApp da Agência
+          </button>
+
+          <button
             onClick={copyMarkdown}
             className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 font-semibold rounded-xl text-sm transition-all border border-zinc-800"
           >
             <Copy className="w-4 h-4 text-red-500" />
-            {copied ? 'Markdown Copiado!' : 'Copiar em Markdown'}
+            {copied ? 'Markdown Copiado!' : 'Copiar Resumo em Markdown'}
           </button>
 
           <button
