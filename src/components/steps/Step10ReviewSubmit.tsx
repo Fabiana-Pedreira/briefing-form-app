@@ -316,67 +316,52 @@ Gostaria de agendar nossa reunião de alinhamento!`;
 
   if (submitted) {
     return (
-      <div className="text-center py-10 space-y-6 animate-fade-in">
+      <div className="text-center py-12 space-y-6 animate-fade-in max-w-xl mx-auto">
         <div className="w-20 h-20 mx-auto rounded-full bg-lime-500/10 dark:bg-lime-500/20 text-lime-400 flex items-center justify-center ring-8 ring-lime-500/10">
           <CheckCircle2 className="w-10 h-10" />
         </div>
 
-        <div className="space-y-3 max-w-lg mx-auto">
-          <span className="px-3 py-1 bg-lime-500/10 border border-lime-500/30 text-lime-400 font-extrabold text-xs uppercase tracking-widest rounded-full">
-            Envio Automático Concluído
+        <div className="space-y-3">
+          <span className="px-3.5 py-1 bg-lime-500/15 border border-lime-500/40 text-lime-400 font-black text-xs uppercase tracking-widest rounded-full">
+            Recebido com Sucesso
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Briefing Recebido pela Frame Mídia! 🎉
+          <h2 className="text-2xl sm:text-3xl font-black text-white">
+            Briefing Finalizado! 🎉
           </h2>
-          <p className="text-sm text-zinc-300 leading-relaxed">
-            As suas respostas foram transmitidas <strong className="text-lime-400">automaticamente</strong> para a equipe da agência (<strong className="text-white">{AGENCY_EMAIL}</strong>) sob o protocolo{' '}
-            <strong className="text-red-500 font-mono font-black">
-              #{briefingId}
-            </strong>
-            .
+          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+            Todas as suas respostas foram salvas e enviadas <strong className="text-lime-400">automaticamente</strong> para a equipe da <strong className="text-white">Frame Mídia</strong>.
           </p>
-          <p className="text-xs text-zinc-400 font-medium">
-            ✅ Não é necessário realizar mais nenhuma ação! Nossa equipe já foi notificada e iniciará o planejamento.
+          <div className="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-1 text-xs">
+            <p className="text-zinc-400">Código do Protocolo de Atendimento:</p>
+            <p className="text-red-500 font-mono font-black text-base">#{briefingId}</p>
+            <p className="text-zinc-500 text-[11px] pt-1">
+              Notificação enviada para: <span className="text-zinc-300 font-mono">{AGENCY_EMAIL}</span>
+            </p>
+          </div>
+          <p className="text-xs text-zinc-400 font-medium pt-2">
+            ✨ Você não precisa fazer mais nada! Nossa equipe analisará as informações e entrará em contato em breve.
           </p>
         </div>
 
-        {/* Optional Actions Row */}
-        <div className="pt-4 border-t border-zinc-800 max-w-xl mx-auto space-y-3">
+        {/* Optional Download Copy for Client Files */}
+        <div className="pt-6 border-t border-zinc-800 space-y-3">
           <p className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
-            Deseja guardar uma cópia do seu briefing? (Opcional)
+            Baixar uma cópia para seus arquivos (Opcional):
           </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={printPdf}
               className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-lime-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
             >
               <FileText className="w-4 h-4 text-red-500" />
-              Baixar Cópia em PDF
+              Salvar PDF
             </button>
-
             <button
               onClick={downloadWordDoc}
               className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-blue-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
             >
               <FileSpreadsheet className="w-4 h-4 text-blue-400" />
-              Baixar Cópia em Word (.DOC)
-            </button>
-
-            <button
-              onClick={sendEmailToAgency}
-              className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
-            >
-              <Mail className="w-4 h-4 text-red-500" />
-              Enviar Cópia para meu E-mail
-            </button>
-
-            <button
-              onClick={openWhatsAppSend}
-              className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-emerald-500/30"
-            >
-              <MessageCircle className="w-4 h-4" />
-              Notificar Agência no WhatsApp
+              Salvar Word (.DOC)
             </button>
           </div>
         </div>
@@ -384,9 +369,9 @@ Gostaria de agendar nossa reunião de alinhamento!`;
         <div className="pt-4">
           <button
             onClick={onReset}
-            className="text-xs text-zinc-400 hover:text-white underline font-semibold"
+            className="text-xs text-zinc-500 hover:text-white underline font-semibold"
           >
-            Preencher Novo Diagnóstico
+            Preencher um Novo Formulário
           </button>
         </div>
       </div>
