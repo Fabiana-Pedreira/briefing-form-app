@@ -30,6 +30,18 @@ export const AgencyAdminModal: React.FC<AgencyAdminModalProps> = ({
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [copiedType, setCopiedType] = useState<string | null>(null);
+  const [submittedList, setSubmittedList] = useState<any[]>([]);
+
+  React.useEffect(() => {
+    if (isUnlocked) {
+      try {
+        const items = JSON.parse(localStorage.getItem('frame_midia_submitted_briefings') || '[]');
+        setSubmittedList(items);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [isUnlocked]);
 
   if (!isOpen) return null;
 
@@ -237,6 +249,46 @@ Por favor, preencha as etapas para alinharmos o seu posicionamento!`;
                   </button>
                 </div>
               </div>
+              </div>
+            </div>
+
+            {/* Submissions Inbox History Section */}
+            <div className="pt-3 border-t border-zinc-800 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-extrabold uppercase tracking-wider text-lime-400 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-red-500" /> Histórico de Briefings Recebidos no Navegador
+                </span>
+                <span className="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded-full font-mono">
+                  {submittedList.length} registro(s)
+                </span>
+              </div>
+
+              {submittedList.length === 0 ? (
+                <p className="text-xs text-zinc-500 italic p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-center">
+                  Nenhum briefing preenchido neste dispositivo ainda. As respostas enviadas pelos clientes aparecerão aqui automaticamente.
+                </p>
+              ) : (
+                <div className="max-h-48 overflow-y-auto space-y-2 pr-1">
+                  {submittedList.map((item, index) => (
+                    <div
+                      key={index}
+                      className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-between text-xs space-y-0.5"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-extrabold text-white">{item.companyName}</span>
+                          <span className="font-mono text-[10px] text-red-500 font-black">#{item.id}</span>
+                        </div>
+                        <p className="text-[11px] text-zinc-400">
+                          {item.type === 'estetica' ? '🌸 Estética & Saúde' : '🚀 Geral de Negócios'} •{' '}
+                          {new Date(item.submittedAt).toLocaleDateString('pt-BR')} às{' '}
+                          {new Date(item.submittedAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="pt-2 text-center">

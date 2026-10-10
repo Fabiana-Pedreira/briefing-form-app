@@ -58,8 +58,25 @@ export const Step10ReviewSubmit: React.FC<StepProps> = ({
       const resData = await response.json();
 
       if (response.ok && resData.success) {
+        const id = resData.briefingId;
         setSubmitted(true);
-        setBriefingId(resData.briefingId);
+        setBriefingId(id);
+
+        // Save locally to agency submissions history
+        try {
+          const existing = JSON.parse(localStorage.getItem('frame_midia_submitted_briefings') || '[]');
+          existing.unshift({
+            id,
+            type: 'estetica',
+            companyName: data.companyName || 'Clínica de Estética',
+            submittedAt: new Date().toISOString(),
+            data,
+          });
+          localStorage.setItem('frame_midia_submitted_briefings', JSON.stringify(existing));
+        } catch (e) {
+          console.warn('LocalStorage save warning:', e);
+        }
+
         confetti({
           particleCount: 140,
           spread: 90,
@@ -304,60 +321,64 @@ Gostaria de agendar nossa reunião de alinhamento!`;
           <CheckCircle2 className="w-10 h-10" />
         </div>
 
-        <div className="space-y-2 max-w-md mx-auto">
+        <div className="space-y-3 max-w-lg mx-auto">
+          <span className="px-3 py-1 bg-lime-500/10 border border-lime-500/30 text-lime-400 font-extrabold text-xs uppercase tracking-widest rounded-full">
+            Envio Automático Concluído
+          </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Diagnóstico de Estética Recebido! 🎉
+            Briefing Recebido pela Frame Mídia! 🎉
           </h2>
-          <p className="text-sm text-zinc-400 leading-relaxed">
-            Sua resposta foi salva com o código{' '}
+          <p className="text-sm text-zinc-300 leading-relaxed">
+            As suas respostas foram transmitidas <strong className="text-lime-400">automaticamente</strong> para a equipe da agência (<strong className="text-white">{AGENCY_EMAIL}</strong>) sob o protocolo{' '}
             <strong className="text-red-500 font-mono font-black">
               #{briefingId}
             </strong>
-            . E-mail oficial da agência: <strong className="text-lime-400 font-mono">{AGENCY_EMAIL}</strong>.
+            .
+          </p>
+          <p className="text-xs text-zinc-400 font-medium">
+            ✅ Não é necessário realizar mais nenhuma ação! Nossa equipe já foi notificada e iniciará o planejamento.
           </p>
         </div>
 
-        {/* Action Buttons Row */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 pt-4 max-w-2xl mx-auto">
-          <button
-            onClick={sendEmailToAgency}
-            className="flex items-center gap-2 px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-red-600/20"
-          >
-            <Mail className="w-4 h-4" />
-            Enviar por E-mail ({AGENCY_EMAIL})
-          </button>
+        {/* Optional Actions Row */}
+        <div className="pt-4 border-t border-zinc-800 max-w-xl mx-auto space-y-3">
+          <p className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+            Deseja guardar uma cópia do seu briefing? (Opcional)
+          </p>
 
-          <button
-            onClick={printPdf}
-            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-lime-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
-          >
-            <FileText className="w-4 h-4 text-red-500" />
-            Baixar em PDF
-          </button>
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
+            <button
+              onClick={printPdf}
+              className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-lime-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
+            >
+              <FileText className="w-4 h-4 text-red-500" />
+              Baixar Cópia em PDF
+            </button>
 
-          <button
-            onClick={downloadWordDoc}
-            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-blue-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
-          >
-            <FileSpreadsheet className="w-4 h-4 text-blue-400" />
-            Baixar em Word (.DOC)
-          </button>
+            <button
+              onClick={downloadWordDoc}
+              className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-blue-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
+            >
+              <FileSpreadsheet className="w-4 h-4 text-blue-400" />
+              Baixar Cópia em Word (.DOC)
+            </button>
 
-          <button
-            onClick={openWhatsAppSend}
-            className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-600/20"
-          >
-            <MessageCircle className="w-4 h-4" />
-            Enviar no WhatsApp
-          </button>
+            <button
+              onClick={sendEmailToAgency}
+              className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 font-bold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
+            >
+              <Mail className="w-4 h-4 text-red-500" />
+              Enviar Cópia para meu E-mail
+            </button>
 
-          <button
-            onClick={copyMarkdown}
-            className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 font-semibold rounded-xl text-xs sm:text-sm transition-all border border-zinc-800"
-          >
-            <Copy className="w-4 h-4 text-red-500" />
-            {copied ? 'Copiado!' : 'Copiar Markdown'}
-          </button>
+            <button
+              onClick={openWhatsAppSend}
+              className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 font-bold rounded-xl text-xs sm:text-sm transition-all border border-emerald-500/30"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Notificar Agência no WhatsApp
+            </button>
+          </div>
         </div>
 
         <div className="pt-4">
