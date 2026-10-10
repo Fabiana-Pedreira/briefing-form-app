@@ -249,7 +249,6 @@ Por favor, preencha as etapas para alinharmos o seu posicionamento!`;
                   </button>
                 </div>
               </div>
-              </div>
             </div>
 
             {/* Submissions Inbox History Section */}
