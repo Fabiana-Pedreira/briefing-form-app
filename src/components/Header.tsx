@@ -9,6 +9,7 @@ interface HeaderProps {
   onOpenPreview: () => void;
   onOpenAgencyAdmin: () => void;
   currentBriefingType: 'estetica' | 'geral';
+  onSelectBriefingType?: (type: 'estetica' | 'geral') => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,7 +18,15 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenPreview,
   onOpenAgencyAdmin,
   currentBriefingType,
+  onSelectBriefingType,
 }) => {
+  const toggleBriefingType = () => {
+    if (onSelectBriefingType) {
+      const nextType = currentBriefingType === 'estetica' ? 'geral' : 'estetica';
+      onSelectBriefingType(nextType);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-black/90 backdrop-blur-md transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -31,10 +40,16 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="font-extrabold text-lg tracking-tight text-white">
                 Briefing <span className="text-red-500 font-black">Frame Mídia</span>
               </span>
-              <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-lime-500/15 text-lime-400 border border-lime-500/40">
+              <button
+                type="button"
+                onClick={toggleBriefingType}
+                title="Clique para alternar o formulário de briefing"
+                className="hidden sm:inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-lime-500/15 hover:bg-lime-500/25 text-lime-400 border border-lime-500/40 transition-all cursor-pointer"
+              >
                 <Sparkles className="w-3 h-3 text-red-400" />
-                {currentBriefingType === 'estetica' ? 'Estética & Saúde' : 'Geral de Negócios'}
-              </span>
+                {currentBriefingType === 'estetica' ? 'Estética & Saúde (09 Sessões)' : 'Geral de Negócios (11 Sessões)'}
+                <span className="text-[9px] text-red-500 font-black ml-1">⇄ Alternar</span>
+              </button>
             </div>
             <p className="text-xs text-zinc-400 hidden sm:block font-medium">
               Menos ruído, mais posicionamento.

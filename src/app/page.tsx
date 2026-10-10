@@ -74,7 +74,12 @@ export default function Home() {
   const handleSelectBriefingType = (type: 'estetica' | 'geral') => {
     setBriefingType(type);
     setCurrentStep(1);
-    localStorage.setItem('frame_midia_briefing_type', type);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('frame_midia_briefing_type', type);
+      const url = new URL(window.location.href);
+      url.searchParams.set('type', type);
+      window.history.pushState({}, '', url.toString());
+    }
   };
 
   const updateEsteticaData = (fields: Partial<BriefingEsteticaData>) => {
@@ -111,6 +116,7 @@ export default function Home() {
           onOpenPreview={() => setIsPreviewOpen(true)}
           onOpenAgencyAdmin={() => setIsAgencyAdminOpen(true)}
           currentBriefingType={briefingType}
+          onSelectBriefingType={handleSelectBriefingType}
         />
 
         {/* Hero Section Banner */}
@@ -120,16 +126,34 @@ export default function Home() {
             <div className="w-[350px] h-[350px] bg-lime-500/15 rounded-full blur-3xl" />
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-red-500/10 text-red-500 border border-red-500/30 shadow-sm">
-              {briefingType === 'estetica' ? (
-                <HeartPulse className="w-3.5 h-3.5 text-lime-400" />
-              ) : (
-                <Building2 className="w-3.5 h-3.5 text-lime-400" />
-              )}
-              <span>
-                Frame Mídia • {briefingType === 'estetica' ? 'Diagnóstico de Estética & Saúde' : 'Briefing Geral de Negócios'}
-              </span>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {/* Interactive Mode Switcher Pills */}
+            <div className="inline-flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-zinc-950 border border-zinc-800 shadow-xl">
+              <button
+                type="button"
+                onClick={() => handleSelectBriefingType('estetica')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
+                  briefingType === 'estetica'
+                    ? 'bg-red-600 text-white shadow-lg shadow-red-600/30'
+                    : 'text-zinc-400 hover:text-white hover:bg-zinc-900'
+                }`}
+              >
+                <HeartPulse className={`w-4 h-4 ${briefingType === 'estetica' ? 'text-lime-400' : 'text-zinc-400'}`} />
+                Estética & Saúde (09 Sessões)
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleSelectBriefingType('geral')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
+                  briefingType === 'geral'
+                    ? 'bg-red-600 text-white shadow-lg shadow-red-600/30'
+                    : 'text-zinc-400 hover:text-white hover:bg-zinc-900'
+                }`}
+              >
+                <Building2 className={`w-4 h-4 ${briefingType === 'geral' ? 'text-lime-400' : 'text-zinc-400'}`} />
+                Geral de Negócios (11 Sessões)
+              </button>
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
